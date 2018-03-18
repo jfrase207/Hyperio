@@ -11,13 +11,15 @@ Uint64 NOW = SDL_GetPerformanceCounter();
 Uint64 LAST = 0;
 float deltaTime = 0;
 
-int levelgrid[5][10] =
+int levelgrid[5][5] =
 {
-	{ 1,0,0,1,1,1,0,1,0,1 },
-	{ 0,1,1,0,1,0,1,0,1,0 },
-	{ 0,0,1,1,0,1,1,0,1,0 },
-	{ 1,0,0,1,1,0,0,1,0,1 },
-	{ 0,1,1,0,0,1,1,0,1,1 },
+	{ 1,0,0,1,1},
+	{ 0,1,1,0,1},
+	{ 0,0,1,1,0},
+	{ 1,0,0,1,1},
+	{ 0,1,1,0,0},
+
+
 };
 
 MainGame::MainGame()
@@ -47,9 +49,9 @@ void MainGame::initSystems()
 	player.init();
 	player.setPosition(glm::vec3(75, 0, -200));
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i <5; i++)
 	{
-		for (int o = 0; o < 10; o++)
+		for (int o = 0; o < 5; o++)
 		{
 			if (levelgrid[i][o] != 0)
 			{
@@ -192,11 +194,13 @@ void MainGame::drawGame()
 
 	skybox.draw();
 
-	player.DrawPhase();
+	player.draw();
+	player.setToon(glm::vec3(1, 1, 1), glm::vec3(0.2, 0.2, 1));
 	
 	for (int i = 0; i < asteroids.size(); i++)
 	{
-		asteroids[i]->DrawPhase();
+		asteroids[i]->draw();
+		asteroids[i]->setToon(glm::vec3(0.2, 0.8, 0.5), glm::vec3(0.5, 0.5, 0.5));
 	}
 
 	counter = counter + 0.01f;

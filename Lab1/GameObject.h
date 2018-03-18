@@ -78,5 +78,12 @@ public:
 	float getSphereRadius()
 	{
 		return mesh->getSphereRadius();
-	}		
+	}
+
+	void setToon(glm::vec3 lightDir, glm::vec3 color)
+	{
+		shader->setVec3("lightDir", lightDir);
+		shader->setVec3("_color", color);
+
+	}
 };
