@@ -192,10 +192,11 @@ void MainGame::drawGame()
 
 	skybox.draw();
 
-	player.draw();
+	player.DrawPhase();
+	
 	for (int i = 0; i < asteroids.size(); i++)
 	{
-		asteroids[i]->draw();
+		asteroids[i]->DrawPhase();
 	}
 
 	counter = counter + 0.01f;

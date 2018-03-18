@@ -1,15 +1,7 @@
-﻿  obj_loader.cpp
+﻿  MainGame.cpp
+c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(77): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(94): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(197): warning C4018: '<': signed/unsigned mismatch
   main.cpp
-  Texture.cpp
-  Skybox.cpp
-  Shader.cpp
-  Mesh.cpp
-  MainGame.cpp
-c:\users\jamie\desktop\hyper-ion-master\lab1\maingame.cpp(77): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\jamie\desktop\hyper-ion-master\lab1\maingame.cpp(94): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\jamie\desktop\hyper-ion-master\lab1\maingame.cpp(196): warning C4018: '<': signed/unsigned mismatch
-  Display.cpp
-  Audio.cpp
   Generating Code...
-  stb_image.c
-  Lab1.vcxproj -> C:\Users\jamie\Desktop\Hyper-Ion-master\Debug\GP2Game.exe
+  Lab1.vcxproj -> C:\Users\jamie\Source\Repos\Hyperio\Debug\GP2Game.exe

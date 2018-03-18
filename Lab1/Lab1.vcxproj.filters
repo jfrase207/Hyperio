@@ -112,5 +112,17 @@
     <None Include="..\res\skybox.vert">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\res\shaderToon.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\shaderToon.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\Toon.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\Toon.vert">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

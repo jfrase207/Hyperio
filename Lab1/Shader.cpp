@@ -2,9 +2,9 @@
 #include <iostream>
 #include <fstream>
 
+
 Shader::Shader()
 {
-
 }
 
 bool Shader::init(const std::string& filename)
@@ -34,7 +34,6 @@ bool Shader::init(const std::string& filename)
 
 	return true;
 }
-
 
 Shader::~Shader()
 {

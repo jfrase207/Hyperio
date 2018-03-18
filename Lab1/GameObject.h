@@ -56,6 +56,8 @@ public:
 		{
 			shader->Bind();
 			shader->Update(transform, Camera::getSingleton());
+
+			
 		}
 
 		if (texture)
@@ -76,5 +78,5 @@ public:
 	float getSphereRadius()
 	{
 		return mesh->getSphereRadius();
-	}
+	}		
 };
