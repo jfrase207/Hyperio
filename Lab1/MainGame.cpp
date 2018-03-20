@@ -11,13 +11,28 @@ Uint64 NOW = SDL_GetPerformanceCounter();
 Uint64 LAST = 0;
 float deltaTime = 0;
 
-int levelgrid[5][5] =
+int levelgrid[20][10] =
 {
-	{ 1,0,0,1,1},
-	{ 0,1,1,0,1},
-	{ 0,0,1,1,0},
-	{ 1,0,0,1,1},
-	{ 0,1,1,0,0},
+	{ 1,0,0,1,1,1,0,0,1,1},
+	{ 0,1,1,0,1,0,1,1,0,1},
+	{ 0,0,1,1,0,0,0,1,1,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,0,0,1,1,0,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,1,0,1,1,0,1 },
+	{ 0,0,1,1,0,0,0,1,1,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,0,0,1,1,0,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,1,0,1,1,0,1 },
+	{ 0,0,1,1,0,0,0,1,1,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,0,0,1,1,0,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,1,0,1,1,0,1 },
+	{ 0,0,1,1,0,0,0,1,1,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,0,0,1,1,0,0 },
 
 
 };
@@ -49,9 +64,11 @@ void MainGame::initSystems()
 	player.init();
 	player.setPosition(glm::vec3(75, 0, -200));
 
-	for (int i = 0; i <5; i++)
+
+
+	for (int i = 0; i <20; i++)
 	{
-		for (int o = 0; o < 5; o++)
+		for (int o = 0; o < 10; o++)
 		{
 			if (levelgrid[i][o] != 0)
 			{
@@ -62,6 +79,8 @@ void MainGame::initSystems()
 			}
 		}
 	}
+
+
 	Camera::getSingleton().initCamera(glm::vec3(0, 2, -10), 45.0f, (float)_gameDisplay.getWidth()/_gameDisplay.getHeight(), 0.01f, 1000.0f);
 	counter = 1.0f;
 	playerMovingDirection = 0;
@@ -89,11 +108,11 @@ void MainGame::gameLoop()
 
 		processInput();
 
-		player.translate(glm::vec3(0, 0, 1), 0.05f * (float)deltaTime);
+		player.translate(glm::vec3(0, 0, 1), 0.2);
 
 		if (playerMovingDirection)
 		{
-			player.translate(glm::vec3(playerMovingDirection, 0, 0), 0.03 * deltaTime);
+			player.translate(glm::vec3(playerMovingDirection, 0, 0), 0.2);
 		}
 
 		Camera::getSingleton().update();
@@ -188,19 +207,23 @@ bool MainGame::collision(glm::vec3 m1Pos, float m1Rad, glm::vec3 m2Pos, float m2
 	}
 }
 
+
 void MainGame::drawGame()
 {
 	_gameDisplay.clearDisplay(0.0f, 0.0f, 0.0f, 1.0f);
-
+	
 	skybox.draw();
 
 	player.draw();
 	player.setToon(glm::vec3(1, 1, 1), glm::vec3(0.2, 0.2, 1));
+
+	
 	
 	for (int i = 0; i < asteroids.size(); i++)
 	{
 		asteroids[i]->draw();
 		asteroids[i]->setToon(glm::vec3(0.2, 0.8, 0.5), glm::vec3(0.5, 0.5, 0.5));
+		
 	}
 
 	counter = counter + 0.01f;
