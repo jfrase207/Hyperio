@@ -13,13 +13,48 @@ Uint64 LAST = 0;
 float deltaTime = 0;
 int oldTimeSinceStart = 0;
 
-int levelgrid[5][10] =
+int levelgrid[40][10] =
 {
 	{ 1,0,0,1,1,1,0,0,1,1 },
 	{ 0,1,1,0,1,0,1,1,0,1 },
 	{ 0,0,1,1,0,0,0,1,1,0 },
 	{ 1,0,0,1,1,1,0,0,1,1 },
 	{ 0,1,1,0,0,0,1,1,0,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,1,0,1,1,0,1 },
+	{ 0,0,1,1,0,0,0,1,1,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,0,0,1,1,0,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,1,0,1,1,0,1 },
+	{ 0,0,1,1,0,0,0,1,1,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,0,0,1,1,0,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,1,0,1,1,0,1 },
+	{ 0,0,1,1,0,0,0,1,1,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,0,0,1,1,0,0 },
+{ 1,0,0,1,1,1,0,0,1,1 },
+{ 0,1,1,0,1,0,1,1,0,1 },
+{ 0,0,1,1,0,0,0,1,1,0 },
+{ 1,0,0,1,1,1,0,0,1,1 },
+{ 0,1,1,0,0,0,1,1,0,0 },
+{ 1,0,0,1,1,1,0,0,1,1 },
+{ 0,1,1,0,1,0,1,1,0,1 },
+{ 0,0,1,1,0,0,0,1,1,0 },
+{ 1,0,0,1,1,1,0,0,1,1 },
+{ 0,1,1,0,0,0,1,1,0,0 },
+{ 1,0,0,1,1,1,0,0,1,1 },
+{ 0,1,1,0,1,0,1,1,0,1 },
+{ 0,0,1,1,0,0,0,1,1,0 },
+{ 1,0,0,1,1,1,0,0,1,1 },
+{ 0,1,1,0,0,0,1,1,0,0 },
+{ 1,0,0,1,1,1,0,0,1,1 },
+{ 0,1,1,0,1,0,1,1,0,1 },
+{ 0,0,1,1,0,0,0,1,1,0 },
+{ 1,0,0,1,1,1,0,0,1,1 },
+{ 0,1,1,0,0,0,1,1,0,0 },
 
 
 };
@@ -38,20 +73,20 @@ MainGame::~MainGame()
 
 void MainGame::run()
 {
-	initSystems(); 
+	initSystems();
 	gameLoop();
 }
 
 void MainGame::initSystems()
 {
 	_gameDisplay.initDisplay();
-	
+
 	backGroundMusic = audioDevice.loadSound("..\\res\\Sci-fi.wav");
 
 	player.init();
 	player.setPosition(glm::vec3(75, 0, -200));
 
-	for (int i = 0; i <5; i++)
+	for (int i = 0; i < 40; i++)
 	{
 		for (int o = 0; o < 10; o++)
 		{
@@ -64,7 +99,7 @@ void MainGame::initSystems()
 			}
 		}
 	}
-	Camera::getSingleton().initCamera(glm::vec3(0, 2, -10), 45.0f, (float)_gameDisplay.getWidth()/_gameDisplay.getHeight(), 0.01f, 1000.0f);
+	Camera::getSingleton().initCamera(glm::vec3(0, 2, -10), 45.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 1000.0f);
 	counter = 1.0f;
 	playerMovingDirection = 0;
 	Camera::getSingleton().setFollowEntity(&player);
@@ -73,7 +108,7 @@ void MainGame::initSystems()
 
 void MainGame::gameLoop()
 {
-	
+
 
 	while (_gameState != GameState::EXIT)
 	{
@@ -82,14 +117,15 @@ void MainGame::gameLoop()
 
 		//deltaTime = (float)(NOW - LAST) * 1000.0 / (float)SDL_GetPerformanceFrequency();
 
-		
+
 
 		int timeSinceStart = clock();
 		deltaTime = timeSinceStart - oldTimeSinceStart;
 		oldTimeSinceStart = timeSinceStart;
-		
+
 		if (deltaTime > 1)
 			continue;
+
 
 		for (size_t i = 0; i < asteroids.size(); i++)
 		{
@@ -99,13 +135,13 @@ void MainGame::gameLoop()
 
 		processInput();
 
-		player.translate(glm::vec3(0, 0, 1), 0.05f * (float)deltaTime);
+		player.translate(glm::vec3(0, 0, 1), 0.2f);
 
 		if (playerMovingDirection)
 		{
-			player.translate(glm::vec3(playerMovingDirection, 0, 0), 0.03 * deltaTime);
+			player.translate(glm::vec3(playerMovingDirection, 0, 0), 0.1f);
 		}
-		
+
 		Camera::getSingleton().update();
 
 		drawGame();
@@ -118,52 +154,52 @@ void MainGame::processInput()
 {
 	SDL_Event evnt;
 
-	while(SDL_PollEvent(&evnt)) //get and process events
+	while (SDL_PollEvent(&evnt)) //get and process events
 	{
 		switch (evnt.type)
 		{
-			case SDL_QUIT:
+		case SDL_QUIT:
+			_gameState = GameState::EXIT;
+			break;
+
+		case SDL_KEYDOWN:
+			switch (evnt.key.keysym.sym)
+			{
+			case SDLK_w:
+				Camera::getSingleton().translate(glm::vec3(0, 0, 1), 3 * deltaTime);
+				break;
+			case SDLK_s:
+				Camera::getSingleton().translate(glm::vec3(0, 0, -1), 3 * deltaTime);
+				break;
+
+			case SDLK_a:
+				playerMovingDirection = 1;
+				break;
+			case SDLK_d:
+				playerMovingDirection = -1;
+				break;
+			case SDLK_ESCAPE:
 				_gameState = GameState::EXIT;
 				break;
+			}
+			break;
 
-			case SDL_KEYDOWN:
-				switch (evnt.key.keysym.sym)
-				{
-				case SDLK_w:
-					Camera::getSingleton().translate(glm::vec3(0, 0, 1), 3 * deltaTime);
-					break;
-				case SDLK_s:
-					Camera::getSingleton().translate(glm::vec3(0, 0, -1), 3 * deltaTime);
-					break;
-
-				case SDLK_a:
-					playerMovingDirection = 1;
-					break;
-				case SDLK_d:
-					playerMovingDirection = -1;
-					break;
-				case SDLK_ESCAPE:
-					_gameState = GameState::EXIT;
-					break;
-				}
+		case SDL_KEYUP:
+			switch (evnt.key.keysym.sym)
+			{
+			case SDLK_a:
+				if (playerMovingDirection == 1)
+					playerMovingDirection = 0;
 				break;
-
-			case SDL_KEYUP:
-				switch (evnt.key.keysym.sym)
-				{
-				case SDLK_a:
-					if (playerMovingDirection == 1)
-						playerMovingDirection = 0;
-					break;
-				case SDLK_d:
-					if (playerMovingDirection == -1)
-						playerMovingDirection = 0;
-					break;
-				}
+			case SDLK_d:
+				if (playerMovingDirection == -1)
+					playerMovingDirection = 0;
 				break;
+			}
+			break;
 		}
 	}
-	
+
 }
 
 void MainGame::playAudio(unsigned int Source, glm::vec3 pos)
@@ -206,7 +242,7 @@ void MainGame::drawGame()
 
 	player.draw();
 	player.setToon(glm::vec3(1, 1, 1), glm::vec3(0.2, 0.2, 1));
-	
+
 	for (int i = 0; i < asteroids.size(); i++)
 	{
 		asteroids[i]->draw();
@@ -215,11 +251,11 @@ void MainGame::drawGame()
 
 	counter = counter + 0.01f;
 
-				
-	glEnableClientState(GL_COLOR_ARRAY); 
+
+	glEnableClientState(GL_COLOR_ARRAY);
 	glEnd();
 
-	
+
 
 	_gameDisplay.swapBuffer();
-} 
+}
