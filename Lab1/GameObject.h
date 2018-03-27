@@ -9,19 +9,29 @@
 
 class GameObject : public Entity
 {
+	Transform transform;
 protected:
 	Mesh *mesh;
 	Texture *texture; // Only 1 texture per mesh
 	Shader *shader;
+
 	float sphereRadius;
 
 public:
+
+	const std::string& rimToon = "..\\res\\shaderRimToon";
+	const std::string& toon = "..\\res\\shaderToon";
+	const std::string& fog = "..\\res\\shaderFog";
+	const std::string& blur = "..\\res\\shaderBlur";
+	const std::string& test = "..\\res\\shaderTest";
+
 	GameObject()
 	{
 		mesh = 0;
 		texture = 0;
 		shader = 0;
 		sphereRadius = 1.0f;
+		
 	}
 
 	virtual ~GameObject()
@@ -47,7 +57,7 @@ public:
 
 	virtual void draw()
 	{
-		Transform transform;
+		
 		transform.SetPos(this->position);
 		transform.SetRot(this->rotation);
 		transform.SetScale(glm::vec3(1, 1, 1));
@@ -80,10 +90,48 @@ public:
 		return mesh->getSphereRadius();
 	}
 
-	void setToon(glm::vec3 lightDir, glm::vec3 color)
+	void setToon(glm::vec3 lightDir, glm::vec3 _color)
 	{
+		draw();
 		shader->setVec3("lightDir", lightDir);
-		shader->setVec3("_color", color);
+		shader->setVec3("_color", _color);
 
 	}
+
+	void setRimToon(glm::vec3 lightDir,glm::vec3 _color)
+	{
+		draw();
+		shader->setVec3("_color", _color);
+		shader->setVec3("lightDir", lightDir);
+		shader->setMat4("u_vm", Camera::getSingleton().GetView());
+		shader->setMat4("u_pm", Camera::getSingleton().GetProjection());
+		shader->setMat4("v_pos", transform.GetModel());
+	}
+
+	void setFog(float zPos, glm::vec3 _color)
+	{
+		
+		shader->setVec3("lightDir", glm::vec3(1, 1, 1));
+		shader->setVec3("_color", _color);
+		//shader->setMat4("u_vm", Camera::getSingleton().GetView());
+		//shader->setMat4("u_pm", Camera::getSingleton().GetProjection());
+		
+		shader->setVec3("fogColor", glm::vec3(0.2, 0.2, 0.2));
+		shader->setFloat("minDist", -100.0f);
+		shader->setFloat("maxDist", 100.0f);
+
+		shader->setFloat("zpos", zPos);
+
+
+	}
+
+	void setBlur()
+	{
+		shader->setVec4("OuterColor", glm::vec4(1, 0, 0, 1));
+		shader->setVec4("InnerColor", glm::vec4(1, 1, 1, 1));
+		shader->setFloat("RadiusInner", 1);
+		shader->setFloat("RadiusOuter", 10);
+
+	}
+
 };

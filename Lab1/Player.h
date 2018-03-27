@@ -16,9 +16,10 @@ public:
 		texture = new Texture();
 		texture->init("..\\res\\ship.png");
 		shader = new Shader();		
-		shader->init("..\\res\\shaderToon");
+		shader->init(toon);
 		this->rotate(glm::vec3(0, 1, 0), 180);
-		sphereRadius = 2.5f;
+		sphereRadius = 2.5f;		
+		
 	}
 	
 	

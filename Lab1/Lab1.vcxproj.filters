@@ -100,12 +100,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\res\shader.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\res\shader.frag">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="..\res\skybox.frag">
       <Filter>Resource Files</Filter>
     </None>
@@ -118,10 +112,40 @@
     <None Include="..\res\shaderToon.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\res\Toon.frag">
+    <None Include="..\res\shaderRim.frag">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\res\Toon.vert">
+    <None Include="..\res\shaderRim.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\shaderRimToon.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\shaderRimToon.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\shaderFog.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\shaderFog.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\shaderBlur.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\shaderBlur.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\shaderTest.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\shaderTest.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\shader.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\shader.vert">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

@@ -11,7 +11,8 @@ Camera *Camera::singleton;
 Uint64 NOW = SDL_GetPerformanceCounter();
 Uint64 LAST = 0;
 float deltaTime = 0;
-int oldTimeSinceStart = 0;
+float oldTimeSinceStart = 0;
+
 
 int levelgrid[40][10] =
 {
@@ -35,26 +36,26 @@ int levelgrid[40][10] =
 	{ 0,0,1,1,0,0,0,1,1,0 },
 	{ 1,0,0,1,1,1,0,0,1,1 },
 	{ 0,1,1,0,0,0,1,1,0,0 },
-{ 1,0,0,1,1,1,0,0,1,1 },
-{ 0,1,1,0,1,0,1,1,0,1 },
-{ 0,0,1,1,0,0,0,1,1,0 },
-{ 1,0,0,1,1,1,0,0,1,1 },
-{ 0,1,1,0,0,0,1,1,0,0 },
-{ 1,0,0,1,1,1,0,0,1,1 },
-{ 0,1,1,0,1,0,1,1,0,1 },
-{ 0,0,1,1,0,0,0,1,1,0 },
-{ 1,0,0,1,1,1,0,0,1,1 },
-{ 0,1,1,0,0,0,1,1,0,0 },
-{ 1,0,0,1,1,1,0,0,1,1 },
-{ 0,1,1,0,1,0,1,1,0,1 },
-{ 0,0,1,1,0,0,0,1,1,0 },
-{ 1,0,0,1,1,1,0,0,1,1 },
-{ 0,1,1,0,0,0,1,1,0,0 },
-{ 1,0,0,1,1,1,0,0,1,1 },
-{ 0,1,1,0,1,0,1,1,0,1 },
-{ 0,0,1,1,0,0,0,1,1,0 },
-{ 1,0,0,1,1,1,0,0,1,1 },
-{ 0,1,1,0,0,0,1,1,0,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,1,0,1,1,0,1 },
+	{ 0,0,1,1,0,0,0,1,1,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,0,0,1,1,0,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,1,0,1,1,0,1 },
+	{ 0,0,1,1,0,0,0,1,1,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,0,0,1,1,0,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,1,0,1,1,0,1 },
+	{ 0,0,1,1,0,0,0,1,1,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,0,0,1,1,0,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,1,0,1,1,0,1 },
+	{ 0,0,1,1,0,0,0,1,1,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,0,0,1,1,0,0 },
 
 
 };
@@ -99,16 +100,23 @@ void MainGame::initSystems()
 			}
 		}
 	}
-	Camera::getSingleton().initCamera(glm::vec3(0, 2, -10), 45.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 1000.0f);
+	Camera::getSingleton().initCamera(glm::vec3(0, 2, -10), 45.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 500.0f);
 	counter = 1.0f;
 	playerMovingDirection = 0;
 	Camera::getSingleton().setFollowEntity(&player);
 	skybox.initialise();
+
+	
+	
+
+
+	
 }
 
 void MainGame::gameLoop()
 {
-
+	
+	
 
 	while (_gameState != GameState::EXIT)
 	{
@@ -119,13 +127,14 @@ void MainGame::gameLoop()
 
 
 
-		int timeSinceStart = clock();
-		deltaTime = timeSinceStart - oldTimeSinceStart;
+		float timeSinceStart = clock();
+		deltaTime = (timeSinceStart - oldTimeSinceStart)/16;
 		oldTimeSinceStart = timeSinceStart;
 
 		if (deltaTime > 1)
 			continue;
 
+		cout << deltaTime << endl;
 
 		for (size_t i = 0; i < asteroids.size(); i++)
 		{
@@ -135,11 +144,11 @@ void MainGame::gameLoop()
 
 		processInput();
 
-		player.translate(glm::vec3(0, 0, 1), 0.2f);
+		player.translate(glm::vec3(0, 0, 1),1 * deltaTime);
 
 		if (playerMovingDirection)
 		{
-			player.translate(glm::vec3(playerMovingDirection, 0, 0), 0.1f);
+			player.translate(glm::vec3(playerMovingDirection, 0, 0), 0.5 * deltaTime);
 		}
 
 		Camera::getSingleton().update();
@@ -238,24 +247,29 @@ void MainGame::drawGame()
 {
 	_gameDisplay.clearDisplay(0.0f, 0.0f, 0.0f, 1.0f);
 
+	
 	skybox.draw();
 
 	player.draw();
-	player.setToon(glm::vec3(1, 1, 1), glm::vec3(0.2, 0.2, 1));
+	player.setToon(glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.2, 0.2, 1));
 
-	for (int i = 0; i < asteroids.size(); i++)
-	{
-		asteroids[i]->draw();
-		asteroids[i]->setToon(glm::vec3(0.2, 0.8, 0.5), glm::vec3(0.5, 0.5, 0.5));
-	}
+	DrawAsteroids();
 
 	counter = counter + 0.01f;
-
-
+	
 	glEnableClientState(GL_COLOR_ARRAY);
 	glEnd();
 
-
-
 	_gameDisplay.swapBuffer();
+}
+
+void MainGame::DrawAsteroids()
+{
+	for (int i = 0; i < asteroids.size(); i++)
+	{
+		asteroids[i]->draw();
+		asteroids[i]->setFog(player.getSpherePos().z,glm::vec3(0.8, 0.8, 0.8));
+		
+	}
+	
 }

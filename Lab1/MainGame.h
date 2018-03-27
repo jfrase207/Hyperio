@@ -27,6 +27,7 @@ private:
 	void processInput();
 	void gameLoop();
 	void drawGame();
+	void DrawAsteroids();
 	bool collision(glm::vec3 m1Pos, float m1Rad, glm::vec3 m2Pos, float m2Rad);
 	void playAudio(unsigned int Source, glm::vec3 pos);
 
