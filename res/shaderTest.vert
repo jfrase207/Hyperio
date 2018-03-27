@@ -1,20 +1,17 @@
 #version 400
 
+
+layout (location = 0) in vec3 VertexPosition;
+layout (location = 2) in vec3 VertexNormal;
+
+uniform mat4 transform;
+
+out vec3 v_norm;
+out vec4 v_pos; 
+
 void main()
 {
-	vec3 normal, lightDir;
-	vec4 diffuse, ambient, globalAmbient;
-	float NdotL;
-
-	normal = normalize(gl_NormalMatrix * gl_Normal);
-	lightDir = normalize(vec3(gl_LightSource[0].position));
-	NdotL = max(dot(normal, lightDir), 0.0);
-	diffuse = gl_FrontMaterial.diffuse * gl_LightSource[0].diffuse;
-	/* Compute the ambient and globalAmbient terms */
-
-	ambient = gl_FrontMaterial.ambient * gl_LightSource[0].ambient;
-	globalAmbient = gl_LightModel.ambient * gl_FrontMaterial.ambient;
-	gl_FrontColor =  NdotL * diffuse + globalAmbient + ambient;
-
-	gl_Position = ftransform();
+	v_norm = VertexNormal;
+	v_pos = vec4(VertexPosition, 1.0);
+	gl_Position = transform * vec4(VertexPosition, 1.0);
 }

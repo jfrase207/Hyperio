@@ -9,6 +9,6 @@ uniform mat4 transform;
 
 void main()
 {
-	normal = normalize(gl_NormalMatrix * gl_Normal);
+	normal = VertexNormal;
 	gl_Position = transform * vec4(VertexPosition, 1.0);
 }

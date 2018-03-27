@@ -108,7 +108,7 @@ public:
 		shader->setMat4("v_pos", transform.GetModel());
 	}
 
-	void setFog(float zPos, glm::vec3 _color)
+	void setFog(glm::vec3 zPosPlayer, glm::vec3 zPosAsteroid, glm::vec3 _color)
 	{
 		
 		shader->setVec3("lightDir", glm::vec3(1, 1, 1));
@@ -117,11 +117,11 @@ public:
 		//shader->setMat4("u_pm", Camera::getSingleton().GetProjection());
 		
 		shader->setVec3("fogColor", glm::vec3(0.2, 0.2, 0.2));
-		shader->setFloat("minDist", -100.0f);
-		shader->setFloat("maxDist", 100.0f);
+		shader->setFloat("minDist", -150);
+		shader->setFloat("maxDist", 150);
 
-		shader->setFloat("zpos", zPos);
-
+		shader->setVec3("zposplayer", zPosPlayer);
+		shader->setVec3("zposasteroid", zPosAsteroid);
 
 	}
 

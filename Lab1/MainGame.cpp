@@ -132,9 +132,7 @@ void MainGame::gameLoop()
 		oldTimeSinceStart = timeSinceStart;
 
 		if (deltaTime > 1)
-			continue;
-
-		cout << deltaTime << endl;
+			continue;		
 
 		for (size_t i = 0; i < asteroids.size(); i++)
 		{
@@ -144,7 +142,7 @@ void MainGame::gameLoop()
 
 		processInput();
 
-		player.translate(glm::vec3(0, 0, 1),1 * deltaTime);
+		player.translate(glm::vec3(0, 0, 1),0.5 * deltaTime);
 
 		if (playerMovingDirection)
 		{
@@ -268,7 +266,7 @@ void MainGame::DrawAsteroids()
 	for (int i = 0; i < asteroids.size(); i++)
 	{
 		asteroids[i]->draw();
-		asteroids[i]->setFog(player.getSpherePos().z,glm::vec3(0.8, 0.8, 0.8));
+		//asteroids[i]->setFog(player.getPosition(),asteroids[i]->getPosition(),glm::vec3(0.8, 0.8, 0.8));
 		
 	}
 	

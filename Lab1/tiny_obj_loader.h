@@ -1,47 +1,3 @@
-/*
-The MIT License (MIT)
-
-Copyright (c) 2012-2017 Syoyo Fujita and many contributors.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-*/
-
-//
-// version 1.1.0 : Support parsing vertex color(#144)
-// version 1.0.8 : Fix parsing `g` tag just after `usemtl`(#138)
-// version 1.0.7 : Support multiple tex options(#126)
-// version 1.0.6 : Add TINYOBJLOADER_USE_DOUBLE option(#124)
-// version 1.0.5 : Ignore `Tr` when `d` exists in MTL(#43)
-// version 1.0.4 : Support multiple filenames for 'mtllib'(#112)
-// version 1.0.3 : Support parsing texture options(#85)
-// version 1.0.2 : Improve parsing speed by about a factor of 2 for large
-// files(#105)
-// version 1.0.1 : Fixes a shape is lost if obj ends with a 'usemtl'(#104)
-// version 1.0.0 : Change data structure. Change license from BSD to MIT.
-//
-
-//
-// Use this in *one* .cc
-//   #define TINYOBJLOADER_IMPLEMENTATION
-//   #include "tiny_obj_loader.h"
-//
-
 #ifndef TINY_OBJ_LOADER_H_
 #define TINY_OBJ_LOADER_H_
 
@@ -50,56 +6,7 @@ THE SOFTWARE.
 #include <vector>
 
 namespace tinyobj {
-
-	// https://en.wikipedia.org/wiki/Wavefront_.obj_file says ...
-	//
-	//  -blendu on | off                       # set horizontal texture blending
-	//  (default on)
-	//  -blendv on | off                       # set vertical texture blending
-	//  (default on)
-	//  -boost real_value                      # boost mip-map sharpness
-	//  -mm base_value gain_value              # modify texture map values (default
-	//  0 1)
-	//                                         #     base_value = brightness,
-	//                                         gain_value = contrast
-	//  -o u [v [w]]                           # Origin offset             (default
-	//  0 0 0)
-	//  -s u [v [w]]                           # Scale                     (default
-	//  1 1 1)
-	//  -t u [v [w]]                           # Turbulence                (default
-	//  0 0 0)
-	//  -texres resolution                     # texture resolution to create
-	//  -clamp on | off                        # only render texels in the clamped
-	//  0-1 range (default off)
-	//                                         #   When unclamped, textures are
-	//                                         repeated across a surface,
-	//                                         #   when clamped, only texels which
-	//                                         fall within the 0-1
-	//                                         #   range are rendered.
-	//  -bm mult_value                         # bump multiplier (for bump maps
-	//  only)
-	//
-	//  -imfchan r | g | b | m | l | z         # specifies which channel of the file
-	//  is used to
-	//                                         # create a scalar or bump texture.
-	//                                         r:red, g:green,
-	//                                         # b:blue, m:matte, l:luminance,
-	//                                         z:z-depth..
-	//                                         # (the default for bump is 'l' and
-	//                                         for decal is 'm')
-	//  bump -imfchan r bumpmap.tga            # says to use the red channel of
-	//  bumpmap.tga as the bumpmap
-	//
-	// For reflection maps...
-	//
-	//   -type sphere                           # specifies a sphere for a "refl"
-	//   reflection map
-	//   -type cube_top    | cube_bottom |      # when using a cube map, the texture
-	//   file for each
-	//         cube_front  | cube_back   |      # side of the cube is specified
-	//         separately
-	//         cube_left   | cube_right
-
+		
 #ifdef TINYOBJLOADER_USE_DOUBLE
 	//#pragma message "using double"
 	typedef double real_t;

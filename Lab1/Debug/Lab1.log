@@ -1,5 +1,8 @@
 ﻿  MainGame.cpp
 c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(130): warning C4244: 'initializing': conversion from 'clock_t' to 'float', possible loss of data
-c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(151): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(268): warning C4018: '<': signed/unsigned mismatch
+c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(145): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(149): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(266): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+  Generating Code...
   Lab1.vcxproj -> C:\Users\jamie\Source\Repos\Hyperio\Debug\GP2Game.exe
