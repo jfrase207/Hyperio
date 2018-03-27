@@ -2,6 +2,7 @@
 #include "Camera.h"
 #include <iostream>
 #include <string>
+#include <time.h>
 
 Transform transform;
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
@@ -10,14 +11,15 @@ Camera *Camera::singleton;
 Uint64 NOW = SDL_GetPerformanceCounter();
 Uint64 LAST = 0;
 float deltaTime = 0;
+int oldTimeSinceStart = 0;
 
-int levelgrid[5][5] =
+int levelgrid[5][10] =
 {
-	{ 1,0,0,1,1},
-	{ 0,1,1,0,1},
-	{ 0,0,1,1,0},
-	{ 1,0,0,1,1},
-	{ 0,1,1,0,0},
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,1,0,1,1,0,1 },
+	{ 0,0,1,1,0,0,0,1,1,0 },
+	{ 1,0,0,1,1,1,0,0,1,1 },
+	{ 0,1,1,0,0,0,1,1,0,0 },
 
 
 };
@@ -51,7 +53,7 @@ void MainGame::initSystems()
 
 	for (int i = 0; i <5; i++)
 	{
-		for (int o = 0; o < 5; o++)
+		for (int o = 0; o < 10; o++)
 		{
 			if (levelgrid[i][o] != 0)
 			{
@@ -71,13 +73,21 @@ void MainGame::initSystems()
 
 void MainGame::gameLoop()
 {
+	
+
 	while (_gameState != GameState::EXIT)
 	{
-		LAST = NOW;
-		NOW = SDL_GetPerformanceCounter();
+		//LAST = NOW;
+		//NOW = SDL_GetPerformanceCounter();
 
-		deltaTime = (float)(NOW - LAST) * 1000.0 / (float)SDL_GetPerformanceFrequency();
+		//deltaTime = (float)(NOW - LAST) * 1000.0 / (float)SDL_GetPerformanceFrequency();
 
+		
+
+		int timeSinceStart = clock();
+		deltaTime = timeSinceStart - oldTimeSinceStart;
+		oldTimeSinceStart = timeSinceStart;
+		
 		if (deltaTime > 1)
 			continue;
 
@@ -95,7 +105,7 @@ void MainGame::gameLoop()
 		{
 			player.translate(glm::vec3(playerMovingDirection, 0, 0), 0.03 * deltaTime);
 		}
-
+		
 		Camera::getSingleton().update();
 
 		drawGame();
