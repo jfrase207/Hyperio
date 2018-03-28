@@ -11,7 +11,7 @@
 #include "Skybox.h"
 #include "Audio.h"
 
-enum class GameState{PLAY, EXIT};
+enum class GameState{LOAD,PLAY, EXIT};
 
 class MainGame
 {

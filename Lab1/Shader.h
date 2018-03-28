@@ -13,6 +13,7 @@ public:
 	void Bind(); //Set gpu to use our shaders
 	void Update(const Transform& transform, const Camera& camera);
 	bool init(const std::string& filename);
+	bool init(const std::string& filename, const std::string& geoShader);
 	GLuint getProgram() { return program; }
 
 	std::string Shader::LoadShader(const std::string& fileName);
@@ -157,7 +158,7 @@ public:
 
 protected:
 private:
-	static const unsigned int NUM_SHADERS = 2; // number of shaders
+	static const unsigned int NUM_SHADERS = 3; // number of shaders
 
 	enum
 	{

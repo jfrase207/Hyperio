@@ -115,10 +115,22 @@ void MainGame::initSystems()
 
 void MainGame::gameLoop()
 {
-	
-	
+	_gameState = GameState::LOAD;
+	while (_gameState == GameState::LOAD)
+	{
+		float timeSinceStart = clock();
+		deltaTime = (timeSinceStart - oldTimeSinceStart) / 16;
+		oldTimeSinceStart = timeSinceStart;
 
-	while (_gameState != GameState::EXIT)
+		Camera::getSingleton().update();
+
+		drawGame();
+		processInput();
+
+		playAudio(backGroundMusic, glm::vec3(0.0f, 0.0f, 0.0f));
+	}
+
+	while (_gameState == GameState::PLAY)
 	{
 		//LAST = NOW;
 		//NOW = SDL_GetPerformanceCounter();
@@ -131,8 +143,8 @@ void MainGame::gameLoop()
 		deltaTime = (timeSinceStart - oldTimeSinceStart)/16;
 		oldTimeSinceStart = timeSinceStart;
 
-		if (deltaTime > 1)
-			continue;		
+		//if (deltaTime > 1)
+			//continue;		
 
 		for (size_t i = 0; i < asteroids.size(); i++)
 		{
@@ -187,6 +199,9 @@ void MainGame::processInput()
 				break;
 			case SDLK_ESCAPE:
 				_gameState = GameState::EXIT;
+				break;
+			case SDLK_RETURN:
+				_gameState = GameState::PLAY;
 				break;
 			}
 			break;
@@ -249,7 +264,9 @@ void MainGame::drawGame()
 	skybox.draw();
 
 	player.draw();
-	player.setToon(glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.2, 0.2, 1));
+	//player.setToon(glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.2, 0.2, 1));
+	player.setGeo();
+	
 
 	DrawAsteroids();
 
@@ -265,8 +282,9 @@ void MainGame::DrawAsteroids()
 {
 	for (int i = 0; i < asteroids.size(); i++)
 	{
+		
 		asteroids[i]->draw();
-		//asteroids[i]->setFog(player.getPosition(),asteroids[i]->getPosition(),glm::vec3(0.8, 0.8, 0.8));
+		asteroids[i]->setFog(player.getPosition(),asteroids[i]->getPosition(),glm::vec3(0.8, 0.8, 0.8));	
 		
 	}
 	

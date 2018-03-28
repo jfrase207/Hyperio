@@ -148,5 +148,14 @@
     <None Include="..\res\shader.vert">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\res\geometryShader.geo">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\geometryShader.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\geometryShader.vert">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
