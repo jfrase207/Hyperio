@@ -25,7 +25,7 @@ vec3 toonRim() {
 	
 	float intensity;
 	vec4 color;
-	intensity = dot(lightDir,normalize(v_norm));
+	intensity = dot(normalize(lightDir),normalize(v_norm));
 
 	if (intensity > 0.95)
 		color = vec4((_color.r * 0.8),(_color.g * 0.8),(_color.b * 0.8),1.0);

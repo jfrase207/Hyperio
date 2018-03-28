@@ -6,6 +6,8 @@
 #include "Camera.h"
 #include "transform.h"
 #include <vector>
+#include <GLFW\glfw3.h>
+#include <time.h>
 
 class GameObject : public Entity
 {
@@ -24,6 +26,8 @@ public:
 	const std::string& fog = "..\\res\\shaderFog";
 	const std::string& blur = "..\\res\\shaderBlur";
 	const std::string& test = "..\\res\\shaderTest";
+	const std::string& geo = "..\\res\\geometryShader";
+
 
 	GameObject()
 	{
@@ -65,9 +69,8 @@ public:
 		if (shader)
 		{
 			shader->Bind();
-			shader->Update(transform, Camera::getSingleton());
-
 			
+			shader->Update(transform, Camera::getSingleton());			
 		}
 
 		if (texture)
@@ -111,7 +114,7 @@ public:
 	void setFog(glm::vec3 zPosPlayer, glm::vec3 zPosAsteroid, glm::vec3 _color)
 	{
 		
-		shader->setVec3("lightDir", glm::vec3(1, 1, 1));
+		shader->setVec3("lightDir", glm::vec3(1,1,1));
 		shader->setVec3("_color", _color);
 		//shader->setMat4("u_vm", Camera::getSingleton().GetView());
 		//shader->setMat4("u_pm", Camera::getSingleton().GetProjection());
@@ -122,6 +125,7 @@ public:
 
 		shader->setVec3("zposplayer", zPosPlayer);
 		shader->setVec3("zposasteroid", zPosAsteroid);
+	
 
 	}
 
@@ -132,6 +136,12 @@ public:
 		shader->setFloat("RadiusInner", 1);
 		shader->setFloat("RadiusOuter", 10);
 
+	}	
+
+	
+	void setGeo()
+	{	
+		shader->setFloat("time", glfwGetTime());
 	}
 
 };

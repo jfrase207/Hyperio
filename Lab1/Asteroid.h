@@ -25,9 +25,10 @@ public:
 		texture = new Texture();
 		texture->init("..\\res\\asteroid.jpg");
 	    shader = new Shader();		
-		shader->init(fog);
+		shader->init(geo);
 		this->rotate(glm::vec3(0, 1, 0), 180);
 		sphereRadius = 5.0f;		
+		
 	   
 	}
 	
