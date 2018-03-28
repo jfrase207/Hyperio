@@ -284,8 +284,8 @@ void MainGame::DrawAsteroids()
 	{
 		
 		asteroids[i]->draw();
-		//asteroids[i]->setFog(player.getPosition(),asteroids[i]->getPosition(),glm::vec3(0.8, 0.8, 0.8));	
-		asteroids[i]->setGeo();
+		asteroids[i]->setFog(player.getPosition(),asteroids[i]->getPosition(),glm::vec3(0.8, 0.8, 0.8));	
+		
 	}
 	
 }
