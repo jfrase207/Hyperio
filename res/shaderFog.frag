@@ -1,4 +1,4 @@
-#version 450
+#version 400
 
 //uniform mat4 u_pm;
 //uniform mat4 u_vm;
@@ -11,7 +11,6 @@ uniform vec3 zposasteroid;
 uniform vec3 _color;
 layout( location = 0 ) out vec4 fragcolor;
 
-float gl_CullDistance[];
  
 in vec3 v_norm;
 in vec4 v_pos; 
@@ -46,10 +45,7 @@ vec3 toonRim() {
 void main() {
 
 	float dist = sqrt((zposplayer.x-zposasteroid.x) * (zposplayer.x-zposasteroid.x) + (zposplayer.y-zposasteroid.y) * (zposplayer.y-zposasteroid.y) + (zposplayer.z-zposasteroid.z) * (zposplayer.z-zposasteroid.z));
-	
-	gl_CullDistance[v_pos] = 1;
-
-	//float dist = abs( zpos );
+		
 
 	float fogFactor = (maxDist - dist) / (maxDist - minDist);
 	fogFactor = clamp( fogFactor, 0.0, 1.0 );
