@@ -1,12 +1,9 @@
 ﻿  MainGame.cpp
-c:\users\jamie\source\repos\hyperio\lab1\gameobject.h(144): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(121): warning C4244: 'initializing': conversion from 'clock_t' to 'float', possible loss of data
-c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(142): warning C4244: 'initializing': conversion from 'clock_t' to 'float', possible loss of data
-c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(157): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(161): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(283): warning C4018: '<': signed/unsigned mismatch
-  Shader.cpp
-  main.cpp
-c:\users\jamie\source\repos\hyperio\lab1\gameobject.h(144): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
-  Lab1.vcxproj -> C:\Users\Jamie\source\repos\Hyperio\Debug\GP2Game.exe
+c:\users\jamie\source\repos\hyperio\lab1\gameobject.h(145): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(122): warning C4244: 'initializing': conversion from 'clock_t' to 'float', possible loss of data
+c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(144): warning C4244: 'initializing': conversion from 'clock_t' to 'float', possible loss of data
+c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(155): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(164): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(168): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(298): warning C4018: '<': signed/unsigned mismatch
+  Lab1.vcxproj -> C:\Users\jamie\Source\Repos\Hyperio\Debug\GP2Game.exe

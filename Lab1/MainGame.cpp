@@ -12,7 +12,8 @@ Uint64 NOW = SDL_GetPerformanceCounter();
 Uint64 LAST = 0;
 float deltaTime = 0;
 float oldTimeSinceStart = 0;
-
+float counter = 0;
+float multiCount = 0;
 
 int levelgrid[40][10] =
 {
@@ -101,7 +102,7 @@ void MainGame::initSystems()
 		}
 	}
 	Camera::getSingleton().initCamera(glm::vec3(0, 2, -10), 45.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 500.0f);
-	counter = 1.0f;
+	
 	playerMovingDirection = 0;
 	Camera::getSingleton().setFollowEntity(&player);
 	skybox.initialise();
@@ -123,10 +124,11 @@ void MainGame::gameLoop()
 		oldTimeSinceStart = timeSinceStart;
 
 		Camera::getSingleton().update();
+		
 
 		drawGame();
 		processInput();
-
+		multiCount = 0;
 		playAudio(backGroundMusic, glm::vec3(0.0f, 0.0f, 0.0f));
 	}
 
@@ -149,7 +151,12 @@ void MainGame::gameLoop()
 		for (size_t i = 0; i < asteroids.size(); i++)
 		{
 			if (collision(player.getSpherePos(), player.getSphereRadius(), asteroids[i]->getSpherePos(), asteroids[i]->getSphereRadius()))
-				_gameState = GameState::EXIT;
+			{
+				multiCount = 0.2;
+				_gameState = GameState::DIE;
+				
+			}
+
 		}
 
 		processInput();
@@ -165,6 +172,13 @@ void MainGame::gameLoop()
 
 		drawGame();
 
+		playAudio(backGroundMusic, glm::vec3(0.0f, 0.0f, 0.0f));
+	}
+
+	while (_gameState == GameState::DIE)
+	{
+		drawGame();
+		processInput();
 		playAudio(backGroundMusic, glm::vec3(0.0f, 0.0f, 0.0f));
 	}
 }
@@ -258,6 +272,7 @@ bool MainGame::collision(glm::vec3 m1Pos, float m1Rad, glm::vec3 m2Pos, float m2
 
 void MainGame::drawGame()
 {
+	 counter += multiCount;
 	_gameDisplay.clearDisplay(0.0f, 0.0f, 0.0f, 1.0f);
 
 	
@@ -265,12 +280,12 @@ void MainGame::drawGame()
 
 	player.draw();
 	//player.setToon(glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.2, 0.2, 1));
-	player.setGeo();
+	player.setGeo(counter, glm::vec3(1, 1, 1), glm::vec3(0.2, 0.2, 1));
 	
 
 	DrawAsteroids();
 
-	counter = counter + 0.01f;
+	
 	
 	glEnableClientState(GL_COLOR_ARRAY);
 	glEnd();

@@ -139,9 +139,13 @@ public:
 	}	
 
 	
-	void setGeo()
+	void setGeo(float mag, glm::vec3 lightDir, glm::vec3 _color)
 	{	
+
 		shader->setFloat("time", glfwGetTime());
+		shader->setFloat("mag", mag);
+		shader->setVec3("_color", _color);
+		shader->setVec3("lightDir", lightDir);
 	}
 
 };

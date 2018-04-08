@@ -4,7 +4,7 @@ layout (triangles) in;
 layout (triangle_strip, max_vertices = 3) out;;
 
 uniform float time;
-
+uniform float mag;
 
 vec3 GetNormal()
 {
@@ -15,8 +15,8 @@ vec3 GetNormal()
 
 vec4 explode(vec4 position, vec3 normal)
 {
-    float magnitude = 10.0;
-    vec3 direction = normal * ((sin(time) + 1.0) / 2.0) * magnitude; 
+    //float magnitude = 10.0;
+    vec3 direction = normal * ((sin(time) + 1.0) / 2.0) * mag; 
     return position + vec4(direction, 0.0);
 } 
 
