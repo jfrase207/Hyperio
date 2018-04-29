@@ -5,5 +5,5 @@ c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(144): warning C4244: 'init
 c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(155): warning C4305: '=': truncation from 'double' to 'float'
 c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(164): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(168): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(298): warning C4018: '<': signed/unsigned mismatch
+c:\users\jamie\source\repos\hyperio\lab1\maingame.cpp(299): warning C4018: '<': signed/unsigned mismatch
   Lab1.vcxproj -> C:\Users\jamie\Source\Repos\Hyperio\Debug\GP2Game.exe
