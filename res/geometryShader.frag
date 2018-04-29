@@ -3,7 +3,7 @@
 out vec4 FragColor;
 uniform vec3 lightDir;
 uniform vec3 _color;
-in vec3 v_norm;
+in vec3 normal;
 
 
 void main()
@@ -13,7 +13,7 @@ void main()
 
 	float intensity;
 	vec4 color;
-	intensity = dot(lightDir,v_norm);
+	intensity = dot(lightDir,normal);
 
 	if (intensity > 0.95)
 		color = vec4((_color.r * 0.8),(_color.g * 0.8),(_color.b * 0.8),1.0);

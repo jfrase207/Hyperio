@@ -280,7 +280,7 @@ void MainGame::drawGame()
 
 	player.draw();
 	//player.setToon(glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.2, 0.2, 1));
-	player.setGeo(counter, glm::vec3(1, 1, 1), glm::vec3(0.2, 0.2, 1));
+	player.setGeo(counter, glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.2, 0.2, 1));
 	
 
 	DrawAsteroids();

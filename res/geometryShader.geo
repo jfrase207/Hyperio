@@ -6,6 +6,8 @@ layout (triangle_strip, max_vertices = 3) out;;
 uniform float time;
 uniform float mag;
 
+out vec3 normal;
+
 vec3 GetNormal()
 {
    vec3 a = vec3(gl_in[0].gl_Position) - vec3(gl_in[1].gl_Position);
@@ -22,7 +24,7 @@ vec4 explode(vec4 position, vec3 normal)
 
 void main()
 {
-vec3 normal = GetNormal();
+normal = GetNormal();
 
     gl_Position = explode(gl_in[0].gl_Position, normal);
     
