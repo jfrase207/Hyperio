@@ -93,10 +93,10 @@ void Grid::InitiateBuffers()
 	glGenBuffers(1, &ibo);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, getVerticesCount(10, 10) * sizeof(vertices[0]), &vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, getVerticesCount(width, height) * sizeof(vertices[0]), &vertices[0], GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, getIndicesCount(10, 10) * sizeof(indices[0]), &indices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, getIndicesCount(width, height) * sizeof(indices[0]), &indices[0], GL_STATIC_DRAW);
 
 
 	glGenVertexArrays(1, &VAO);
