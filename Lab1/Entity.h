@@ -26,11 +26,13 @@ public:
 	void translate(const glm::vec3& vec, float delta)
 	{
 		this->position += vec * delta;
+		
 	}
 
 	void rotate(const glm::vec3& vec, float angleDegrees)
 	{
 		rotation = glm::rotate(rotation, (float)M_PI/180 * angleDegrees, vec);
+		
 	}
 
 	void setPosition(const glm::vec3& vec)

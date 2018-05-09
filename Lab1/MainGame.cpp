@@ -14,6 +14,11 @@ float deltaTime = 0;
 float oldTimeSinceStart = 0;
 float counter = 0;
 float multiCount = 0;
+float randX, randY, randZ;
+
+glm::vec3 randomVec;
+
+
 
 int levelgrid[40][10] =
 {
@@ -85,10 +90,13 @@ void MainGame::initSystems()
 
 	backGroundMusic = audioDevice.loadSound("..\\res\\Sci-fi.wav");
 
-	player.init();
-	player.setPosition(glm::vec3(75, 0, -200));
+	
 
-	for (int i = 0; i < 40; i++)
+	player.init();
+	player.setPosition(glm::vec3(75, 0, -100));
+	player.rotate(glm::vec3(0, 1, 0), 90);
+
+	/*for (int i = 0; i < 40; i++)
 	{
 		for (int o = 0; o < 10; o++)
 		{
@@ -98,20 +106,33 @@ void MainGame::initSystems()
 				asteroid->init(rand() % 2 + 1);
 				asteroid->setPosition(glm::vec3(15 * o, 0, 20 * i));
 				asteroids.push_back(asteroid);
+				
+
+				randX = (rand() % 100 + 30) / 10;
+				randY = (rand() % 100 + 30) / 10;
+				randZ = (rand() % 100 + 30) / 10;
+				randomVec = glm::vec3(randX, randY, randZ);	
+				randomLight.push_back(randomVec);
 			}
 		}
-	}
+	}*/
 	Camera::getSingleton().initCamera(glm::vec3(0, 2, -10), 45.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 500.0f);
 	
 	playerMovingDirection = 0;
+	
 	Camera::getSingleton().setFollowEntity(&player);
-	skybox.initialise();
-
 	
-	
+	skybox.initialise();	
+	grid.init();
+}
 
-
-	
+void MainGame::reset()
+{
+	player.init();
+	player.setPosition(glm::vec3(75, 0, -100));	
+	counter = 0;
+	multiCount = 0;
+	gameLoop();
 }
 
 void MainGame::gameLoop()
@@ -124,7 +145,6 @@ void MainGame::gameLoop()
 		oldTimeSinceStart = timeSinceStart;
 
 		Camera::getSingleton().update();
-		
 
 		drawGame();
 		processInput();
@@ -161,7 +181,7 @@ void MainGame::gameLoop()
 
 		processInput();
 
-		player.translate(glm::vec3(0, 0, 1),0.5 * deltaTime);
+		player.translate(glm::vec3(0, 0, 1),0.5 * deltaTime);		
 
 		if (playerMovingDirection)
 		{
@@ -199,23 +219,31 @@ void MainGame::processInput()
 			switch (evnt.key.keysym.sym)
 			{
 			case SDLK_w:
-				Camera::getSingleton().translate(glm::vec3(0, 0, 1), 3 * deltaTime);
+				player.translate(glm::vec3(0, 0, 1),0.2);
 				break;
 			case SDLK_s:
-				Camera::getSingleton().translate(glm::vec3(0, 0, -1), 3 * deltaTime);
+				player.translate(glm::vec3(0, 0, 1), -0.2);
 				break;
-
-			case SDLK_a:
+			case SDLK_a:				
 				playerMovingDirection = 1;
+				player.translate(glm::vec3(1, 0, 0), 0.2);
 				break;
-			case SDLK_d:
+			case SDLK_d:				
 				playerMovingDirection = -1;
+				player.translate(glm::vec3(1, 0, 1), -0.2);
 				break;
 			case SDLK_ESCAPE:
 				_gameState = GameState::EXIT;
 				break;
 			case SDLK_RETURN:
 				_gameState = GameState::PLAY;
+				break;
+			case SDLK_r:	
+				reset();
+				_gameState = GameState::LOAD;
+				break;
+			case SDLK_f:
+				Camera::getSingleton().setPosition(glm::vec3(0,0,100));
 				break;
 			}
 			break;
@@ -226,6 +254,7 @@ void MainGame::processInput()
 			case SDLK_a:
 				if (playerMovingDirection == 1)
 					playerMovingDirection = 0;
+
 				break;
 			case SDLK_d:
 				if (playerMovingDirection == -1)
@@ -274,21 +303,19 @@ void MainGame::drawGame()
 {
 	 counter += multiCount;
 	_gameDisplay.clearDisplay(0.0f, 0.0f, 0.0f, 1.0f);
-
+	
 	
 	skybox.draw();
 
-	player.draw();
-	//player.setToon(glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.2, 0.2, 1));
+	grid.drawGrid();	
+	
+	
+	player.draw();	
+	
 	player.setGeo(counter, glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.2, 0.2, 1));
 	
 
-	DrawAsteroids();
-
-	
-	
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnd();
+	//DrawAsteroids();		
 
 	_gameDisplay.swapBuffer();
 }
@@ -299,8 +326,19 @@ void MainGame::DrawAsteroids()
 	{
 		
 		asteroids[i]->draw();
-		asteroids[i]->setFog(player.getPosition(),asteroids[i]->getPosition(),glm::vec3(0.8, 0.8, 0.8));	
+		asteroids[i]->setFog(player.getPosition(),asteroids[i]->getPosition(),glm::vec3(0.8, 0.8, 0.8),randomLight[i]);
 		
 	}
+	
+}
+
+
+
+
+
+void MainGame::DrawTriangle()
+{
+	
+	
 	
 }

@@ -14,7 +14,7 @@ Skybox::~Skybox()
 bool Skybox::initialise()
 {
 	create_skybox_mesh();
-	create_skybox_texture("..\\res\\cwd", ".jpg");
+	create_skybox_texture("..\\res\\skybox\\cwd", ".jpg");
 	return true;
 }
 
@@ -24,6 +24,8 @@ void Skybox::draw()
 	transform.SetPos(Camera::getSingleton().getPosition());
 	transform.SetRot(this->rotation);
 	transform.SetScale(glm::vec3(1, 1, 1));
+	
+	
 
 	glDepthMask(GL_FALSE);
 
@@ -96,6 +98,7 @@ void Skybox::create_skybox_mesh()
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	glBindVertexArray(0);
 }
 
 void Skybox::create_skybox_texture(const std::string &filePrefix, const std::string &fileType)
@@ -105,12 +108,12 @@ void Skybox::create_skybox_texture(const std::string &filePrefix, const std::str
 	glGenTextures(1, &texSkybox);
 
 	// load each image and copy into a side of the cube-map texture
-	load_side(texSkybox, GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, filePrefix + "_ft" + fileType);
-	load_side(texSkybox, GL_TEXTURE_CUBE_MAP_POSITIVE_Z, filePrefix + "_bk" + fileType);
+	load_side(texSkybox, GL_TEXTURE_CUBE_MAP_NEGATIVE_X, filePrefix + "_ft" + fileType);
+	load_side(texSkybox, GL_TEXTURE_CUBE_MAP_POSITIVE_X, filePrefix + "_bk" + fileType);
 	load_side(texSkybox, GL_TEXTURE_CUBE_MAP_POSITIVE_Y, filePrefix + "_up" + fileType);
 	load_side(texSkybox, GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, filePrefix + "_dn" + fileType);
-	load_side(texSkybox, GL_TEXTURE_CUBE_MAP_NEGATIVE_X, filePrefix + "_lf" + fileType);
-	load_side(texSkybox, GL_TEXTURE_CUBE_MAP_POSITIVE_X, filePrefix + "_rt" + fileType);
+	load_side(texSkybox, GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, filePrefix + "_lf" + fileType);
+	load_side(texSkybox, GL_TEXTURE_CUBE_MAP_POSITIVE_Z, filePrefix + "_rt" + fileType);
 	// format cube map texture
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

@@ -77,6 +77,7 @@
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -93,6 +94,7 @@
     <ClInclude Include="Display.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="obj_loader.h" />
@@ -108,6 +110,8 @@
     <None Include="..\res\geometryShader.frag" />
     <None Include="..\res\geometryShader.geo" />
     <None Include="..\res\geometryShader.vert" />
+    <None Include="..\res\grid.frag" />
+    <None Include="..\res\grid.vert" />
     <None Include="..\res\shader.frag" />
     <None Include="..\res\shader.vert" />
     <None Include="..\res\shaderBlur.frag" />

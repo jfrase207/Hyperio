@@ -27,6 +27,8 @@ public:
 	const std::string& blur = "..\\res\\shaderBlur";
 	const std::string& test = "..\\res\\shaderTest";
 	const std::string& geo = "..\\res\\geometryShader";
+	const std::string& grid = "..\\res\\grid";
+	const std::string& skybox = "..\\res\\skybox";
 
 
 	GameObject()
@@ -68,8 +70,7 @@ public:
 
 		if (shader)
 		{
-			shader->Bind();
-			
+			shader->Bind();			
 			shader->Update(transform, Camera::getSingleton());			
 		}
 
@@ -81,7 +82,7 @@ public:
 			mesh->draw();
 			mesh->updateSphereData(this->position, sphereRadius);
 		}
-	}
+	}		
 
 	glm::vec3 getSpherePos()
 	{
@@ -111,10 +112,10 @@ public:
 		shader->setMat4("v_pos", transform.GetModel());
 	}
 
-	void setFog(glm::vec3 zPosPlayer, glm::vec3 zPosAsteroid, glm::vec3 _color)
+	void setFog(glm::vec3 zPosPlayer, glm::vec3 zPosAsteroid, glm::vec3 _color, glm::vec3 _lightDir)
 	{
 		
-		shader->setVec3("lightDir", glm::vec3(1,1,1));
+		shader->setVec3("lightDir", _lightDir);
 		shader->setVec3("_color", _color);
 		//shader->setMat4("u_vm", Camera::getSingleton().GetView());
 		//shader->setMat4("u_pm", Camera::getSingleton().GetProjection());
@@ -146,6 +147,12 @@ public:
 		shader->setFloat("mag", mag);
 		shader->setVec3("_color", _color);
 		shader->setVec3("lightDir", lightDir);
+	}
+
+	void setMvp(Transform transform, Camera camera)
+	{
+		glm::mat4 mvp = camera.GetViewProjection() * transform.GetModel();
+		shader->setMat4("_mvp", mvp);
 	}
 
 };

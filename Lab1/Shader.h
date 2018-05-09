@@ -18,8 +18,7 @@ public:
 
 	std::string Shader::LoadShader(const std::string& fileName);
 	void Shader::CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string& errorMessage);
-	GLuint Shader::CreateShader(const std::string& text, unsigned int type);
-
+	GLuint Shader::CreateShader(const std::string& text, unsigned int type);	
 
 	// uniform functions
 	// ------------------------------------------------------------------------
@@ -167,7 +166,7 @@ private:
 		NUM_UNIFORMS
 	};
 
-	GLuint program; // Track the shader program
+	GLuint program; // Track the shader program	
 	GLuint shaders[NUM_SHADERS]; //array of shaders
 	GLuint uniforms[NUM_UNIFORMS]; //no of uniform variables
 };
