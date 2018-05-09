@@ -17,9 +17,14 @@ public:
 	bool init();	
 	void drawGrid();
 	void GenerateGrid();
+	void InitiateBuffers();
+	bool getIndices(int width, int height);
+	bool getVertices(int width, int height);
 
-	std::vector<Vert> vertices;
-	std::vector<float> indices;
+	void render();
+
+	//std::vector<Vert> vertices;
+	//std::vector<float> indices;
 
 	GLuint VAO;
 	GLuint VBO;
