@@ -1,10 +1,12 @@
 #include "Grid.h"
+#include "PerlinNoise.h"
 
 
 
 Transform transformer;
-int width = 20;
-int height = 20;
+int width = 200;
+int height = 200;
+glm::vec3 scale = glm::vec3(1, 1, 1);
 float* vertices = 0;
 int* indices = 0;
 
@@ -20,7 +22,7 @@ Grid::~Grid()
 
 bool Grid::init()
 {
-	//GridMesh();
+	
 	getVertices(width,height);
 	getIndices(width,height);
 	InitiateBuffers();
@@ -42,12 +44,20 @@ bool Grid::getVertices(int width, int height) {
 	vertices = new float[getVerticesCount(width, height)];
 	int i = 0;
 
+	unsigned int seed = (rand() % 1000 + 1);
+	PerlinNoise pn(seed);
+
 	for (int row = 0; row<width; row++) {
 		for (int col = 0; col<height; col++) {
-			
+
+			double x = (double)row / ((double)width);
+			double y = (double)col / ((double)height);
+
+			float n = pn.noise(10 * x, 10 * y, 0.8);
+			float yVer = n * 20;
 
 			vertices[i++] = (float)row;
-			vertices[i++] = (rand() % 10 + 1) / 10;
+			vertices[i++] = yVer;
 			vertices[i++] = (float)col;
 		}
 	}
@@ -64,14 +74,14 @@ bool Grid::getIndices(int width, int height) {
 	for (int row = 0; row<width - 1; row++) {
 		if ((row & 1) == 0) { // even rows
 			for (int col = 0; col<height; col++) {
-				indices[i++] = col + row * width;
-				indices[i++] = col + (row + 1) * width;
+				indices[i++] = col + row * height;
+				indices[i++] = col + (row + 1) * height;
 			}
 		}
 		else { // odd rows
-			for (int col = width - 1; col>0; col--) {
-				indices[i++] = col + (row + 1) * width;
-				indices[i++] = col - 1 + +row * width;
+			for (int col = height - 1; col>0; col--) {
+				indices[i++] = col + (row + 1) * height;
+				indices[i++] = col - 1 + +row * height;
 			}
 		}
 	}
@@ -115,27 +125,15 @@ void Grid::InitiateBuffers()
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);		
 
 	shader = new Shader();
-	shader->init(grid);
+	shader->init(grid,grid);
 }
-
-void Grid::render() {
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, vertices);
-	glDrawElements(GL_TRIANGLE_STRIP, getIndicesCount(width, height), GL_UNSIGNED_INT, indices);
-	glDisableClientState(GL_VERTEX_ARRAY);
-}
-
-
-
-
-
 
 void Grid::drawGrid()
 {
 	
-	transformer.SetPos(glm::vec3(75, 0, -100));
+	transformer.SetPos(glm::vec3(0, -20, -100));
 	transformer.SetRot(this->rotation);
-	transformer.SetScale(glm::vec3(1, 1, 1));
+	transformer.SetScale(scale);
 	
 	
 
@@ -145,14 +143,13 @@ void Grid::drawGrid()
 		shader->Update(transformer, Camera::getSingleton());
 	}
 
-	float randY = (rand() % 10 + 1) / 10;
-
-	
 	
 
-	glDisable(GL_CULL_FACE);
+	//glDisable(GL_CULL_FACE);
+
+	glCullFace(GL_FRONT);
 	
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	
 	glBindVertexArray(VAO);
 
@@ -163,13 +160,14 @@ void Grid::drawGrid()
 	
 	glDrawElements(GL_TRIANGLE_STRIP, getIndicesCount(width, height), GL_UNSIGNED_INT, 0);
 
+	glCullFace(GL_BACK);
 	
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	glEnable(GL_CULL_FACE);
 
 
-	//glCullFace(GL_BACK);
+	
 
 	
 }

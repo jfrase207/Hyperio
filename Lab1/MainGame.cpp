@@ -310,9 +310,10 @@ void MainGame::drawGame()
 	grid.drawGrid();	
 	
 	
-	player.draw();	
 	
-	player.setGeo(counter, glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.2, 0.2, 1));
+	//player.draw();	
+	
+	//player.setGeo(counter, glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.2, 0.2, 1));
 	
 
 	//DrawAsteroids();		

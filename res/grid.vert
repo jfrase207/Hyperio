@@ -3,19 +3,18 @@
 attribute vec3 position;
 attribute vec2 texCoord;
 
-uniform mat4 transform;
-
+//uniform mat4 transform;
 
 varying vec3 texcoords;
 
+out vec3 normal;
+
+out vec3 color;
 
 
 void main()
 {
-    gl_Position = transform * vec4(position.x,position.y,position.z, 1.0);
-
-
-
+    gl_Position = vec4(position.x,position.y,position.z, 1.0);	
 
 }
 

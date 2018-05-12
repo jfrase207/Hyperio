@@ -82,6 +82,7 @@
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="obj_loader.cpp" />
+    <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="stb_image.c" />
@@ -98,6 +99,7 @@
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="obj_loader.h" />
+    <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Skybox.h" />
@@ -111,6 +113,7 @@
     <None Include="..\res\geometryShader.geo" />
     <None Include="..\res\geometryShader.vert" />
     <None Include="..\res\grid.frag" />
+    <None Include="..\res\grid.geo" />
     <None Include="..\res\grid.vert" />
     <None Include="..\res\shader.frag" />
     <None Include="..\res\shader.vert" />

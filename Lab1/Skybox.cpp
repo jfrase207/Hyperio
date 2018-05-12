@@ -14,7 +14,7 @@ Skybox::~Skybox()
 bool Skybox::initialise()
 {
 	create_skybox_mesh();
-	create_skybox_texture("..\\res\\skybox\\cwd", ".jpg");
+	create_skybox_texture("..\\res\\space\\cwd", ".jpg");
 	return true;
 }
 
