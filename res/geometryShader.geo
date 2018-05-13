@@ -6,6 +6,8 @@ layout (triangle_strip, max_vertices = 3) out;;
 uniform float time;
 uniform float mag;
 
+
+
 out vec3 normal;
 
 vec3 GetNormal()

@@ -34,7 +34,7 @@ void main()
 	for(int i=0;i<3;i++){
 		gl_Position = transform * gl_in[i].gl_Position;
 		
-		/*(if(gl_Position.y > -20)
+	/*if(gl_Position.y > -20)
 		colorCont = vec3(0.6,0.2,0.1);
 	else if(gl_Position.y < -30)
 		colorCont = vec3(0.6,0.8,0.9);
@@ -45,7 +45,7 @@ void main()
 
 	if(gl_Position.y > -17)*/
 
-		colorCont = vec3(0.5,0.5,0.5);
+		colorCont = vec3(0.4,1.0,0.4);
 
 		finalcolor = colorCont * lighting;
 		EmitVertex();

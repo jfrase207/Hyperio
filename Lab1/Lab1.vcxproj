@@ -109,6 +109,7 @@
     <ClInclude Include="transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\res\asterGeo.geo" />
     <None Include="..\res\geometryShader.frag" />
     <None Include="..\res\geometryShader.geo" />
     <None Include="..\res\geometryShader.vert" />

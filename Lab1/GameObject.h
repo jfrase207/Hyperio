@@ -27,6 +27,7 @@ public:
 	const std::string& blur = "..\\res\\shaderBlur";
 	const std::string& test = "..\\res\\shaderTest";
 	const std::string& geo = "..\\res\\geometryShader";
+	const std::string& asterGeo = "..\\res\\asterGeo";
 	const std::string& grid = "..\\res\\grid";
 	const std::string& skybox = "..\\res\\skybox";
 
@@ -114,9 +115,11 @@ public:
 
 	void setFog(glm::vec3 zPosPlayer, glm::vec3 zPosAsteroid, glm::vec3 _color, glm::vec3 _lightDir)
 	{
-		
+		shader->setFloat("distance", zPosPlayer.z);
+
 		shader->setVec3("lightDir", _lightDir);
 		shader->setVec3("_color", _color);
+
 		//shader->setMat4("u_vm", Camera::getSingleton().GetView());
 		//shader->setMat4("u_pm", Camera::getSingleton().GetProjection());
 		
@@ -126,6 +129,7 @@ public:
 
 		shader->setVec3("zposplayer", zPosPlayer);
 		shader->setVec3("zposasteroid", zPosAsteroid);
+		
 	
 
 	}
@@ -148,6 +152,7 @@ public:
 		shader->setVec3("_color", _color);
 		shader->setVec3("lightDir", lightDir);
 	}
+
 
 	void setMvp(Transform transform, Camera camera)
 	{

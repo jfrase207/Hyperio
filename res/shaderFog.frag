@@ -12,20 +12,20 @@ uniform vec3 _color;
 layout( location = 0 ) out vec4 fragcolor;
 
  
-in vec3 v_norm;
+in vec3 normal;
 in vec4 v_pos; 
  
 vec3 toonRim() {
  
-	/* vec3 n = normalize(mat3(u_vm) * normalize(v_norm));      // convert normal to view space
+	/*vec3 n = normalize(mat3(u_vm) * normalize(v_norm));      // convert normal to view space
 	vec3 p = vec3((u_pm) * v_pos);                // position in clip space
-	vec3 v = normalize(p);                        // normalised eye vector
-	float vdn = 0.6 - max(dot(v, n), 0.0);        // the rim contribution
-	*/
+	vec3 v = normalize(p); */                       // normalised eye vector
+	//float vdn = 0.6 - max(dot(v, n), 0.0);        // the rim contribution
+	
 	
 	float intensity;
 	vec4 color;
-	intensity = dot(normalize(lightDir),normalize(v_norm));
+	intensity = dot(normalize(lightDir),normalize(normal));
 
 	if (intensity > 0.95)
 		color = vec4((_color.r * 0.8),(_color.g * 0.8),(_color.b * 0.8),1.0);

@@ -93,10 +93,11 @@ void MainGame::initSystems()
 	
 
 	player.init();
-	player.setPosition(glm::vec3(75, 0, -100));
+	player.setPosition(glm::vec3(75, 10, -100));
 	player.rotate(glm::vec3(0, 1, 0), 90);
+	
 
-	/*for (int i = 0; i < 40; i++)
+	for (int i = 0; i < 40; i++)
 	{
 		for (int o = 0; o < 10; o++)
 		{
@@ -104,19 +105,20 @@ void MainGame::initSystems()
 			{
 				Asteroid *asteroid = new Asteroid();
 				asteroid->init(rand() % 2 + 1);
-				asteroid->setPosition(glm::vec3(15 * o, 0, 20 * i));
+				asteroid->setPosition(glm::vec3(15 * o, 10, 20 * i));
 				asteroids.push_back(asteroid);
 				
 
 				randX = (rand() % 100 + 30) / 10;
 				randY = (rand() % 100 + 30) / 10;
 				randZ = (rand() % 100 + 30) / 10;
+
 				randomVec = glm::vec3(randX, randY, randZ);	
 				randomLight.push_back(randomVec);
 			}
 		}
-	}*/
-	Camera::getSingleton().initCamera(glm::vec3(0, 2, -10), 45.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 500.0f);
+	}
+	Camera::getSingleton().initCamera(glm::vec3(0, 2, -10), 45.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 1000.0f);
 	
 	playerMovingDirection = 0;
 	
@@ -129,7 +131,7 @@ void MainGame::initSystems()
 void MainGame::reset()
 {
 	player.init();
-	player.setPosition(glm::vec3(75, 0, -100));	
+	player.setPosition(glm::vec3(75, 10, -100));	
 	counter = 0;
 	multiCount = 0;
 	gameLoop();
@@ -169,7 +171,9 @@ void MainGame::gameLoop()
 			//continue;		
 
 		for (size_t i = 0; i < asteroids.size(); i++)
-		{
+		{		
+			//asteroids[i]->translate(glm::vec3(0, 0, 1), -0.3 * deltaTime);
+			
 			if (collision(player.getSpherePos(), player.getSphereRadius(), asteroids[i]->getSpherePos(), asteroids[i]->getSphereRadius()))
 			{
 				multiCount = 0.2;
@@ -226,11 +230,11 @@ void MainGame::processInput()
 				break;
 			case SDLK_a:				
 				playerMovingDirection = 1;
-				player.translate(glm::vec3(1, 0, 0), 0.2);
+				//player.translate(glm::vec3(1, 0, 0), 0.2);
 				break;
 			case SDLK_d:				
 				playerMovingDirection = -1;
-				player.translate(glm::vec3(1, 0, 1), -0.2);
+				//player.translate(glm::vec3(1, 0, 1), -0.2);
 				break;
 			case SDLK_ESCAPE:
 				_gameState = GameState::EXIT;
@@ -311,12 +315,12 @@ void MainGame::drawGame()
 	
 	
 	
-	//player.draw();	
+	player.draw();	
 	
-	//player.setGeo(counter, glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.2, 0.2, 1));
+	player.setGeo(counter, glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.2, 0.2, 1));
 	
 
-	//DrawAsteroids();		
+	DrawAsteroids();		
 
 	_gameDisplay.swapBuffer();
 }
@@ -326,8 +330,10 @@ void MainGame::DrawAsteroids()
 	for (int i = 0; i < asteroids.size(); i++)
 	{
 		
-		asteroids[i]->draw();
+		asteroids[i]->draw();		
 		asteroids[i]->setFog(player.getPosition(),asteroids[i]->getPosition(),glm::vec3(0.8, 0.8, 0.8),randomLight[i]);
+		
+		
 		
 	}
 	

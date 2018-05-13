@@ -14,7 +14,7 @@ Skybox::~Skybox()
 bool Skybox::initialise()
 {
 	create_skybox_mesh();
-	create_skybox_texture("..\\res\\space\\cwd", ".jpg");
+	create_skybox_texture("..\\res\\skybox\\cwd", ".jpg");
 	return true;
 }
 
@@ -24,6 +24,7 @@ void Skybox::draw()
 	transform.SetPos(Camera::getSingleton().getPosition());
 	transform.SetRot(this->rotation);
 	transform.SetScale(glm::vec3(1, 1, 1));
+	
 	
 	
 

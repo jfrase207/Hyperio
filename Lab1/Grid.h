@@ -20,6 +20,7 @@ public:
 	void InitiateBuffers();
 	bool getIndices(int width, int height);
 	bool getVertices(int width, int height);
+	void generatePerlin();
 
 	void render();
 
