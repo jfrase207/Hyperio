@@ -20,8 +20,8 @@ public:
 		std::string filename = "..\\res\\Asteroid";
 		filename += std::to_string(asteroidNum);
 		filename += ".obj";
-		mesh = new Mesh();
-		mesh->loadModel(filename);
+		ModelMesh = new Mesh();
+		ModelMesh->loadModel(filename);
 		texture = new Texture();
 		texture->init("..\\res\\asteroid.jpg");
 	    shader = new Shader();		

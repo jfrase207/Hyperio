@@ -30,21 +30,32 @@ private:
 	void gameLoop();
 	void drawGame();
 	void DrawAsteroids();
-	bool collision(glm::vec3 m1Pos, float m1Rad, glm::vec3 m2Pos, float m2Rad);
+	bool CollisionCheck(glm::vec3 m1Pos, float m1Rad, glm::vec3 m2Pos, float m2Rad);
 	void playAudio(unsigned int Source, glm::vec3 pos);
-	void DrawTriangle();
+	void CalculateDeltaTime();
 
 	Display _gameDisplay;
 	GameState _gameState;
 
 	Audio audioDevice;
 	Player player;
-	Grid grid;
+	Grid terrain;
+
 	std::vector<Asteroid *> asteroids;
 	std::vector<glm::vec3> randomLight;
+
 	int playerMovingDirection;
 	Skybox skybox;
-	float counter;
+	float explosionCounter;
 	unsigned int backGroundMusic;
+
+	
+
+	float deltaTime;
+	float oldTimeSinceStart;
+	float explosionRate;
+	float randX, randY, randZ;
+
+	glm::vec3 randomVec;
 };
 

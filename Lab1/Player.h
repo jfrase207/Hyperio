@@ -11,19 +11,15 @@ public:
 
 	void init()
 	{
-		mesh = new Mesh();
-		mesh->loadModel("..\\res\\Ship.obj");
+		ModelMesh = new Mesh();
+		ModelMesh->loadModel("..\\res\\Ship.obj");
 		texture = new Texture();
 		texture->init("..\\res\\ship.png");
 		shader = new Shader();		
 		shader->init(geo,geo);
 		sphereRadius = 2.5f;	
 		
-		
 	}
-	
-	
-
 	virtual ~Player()
 	{
 

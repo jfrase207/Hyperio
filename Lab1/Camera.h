@@ -4,7 +4,7 @@
 #include <glm/gtx/transform.hpp>
 #include "Entity.h"
 
-class Camera : public Entity
+class Camera : public GameEntity
 {
 private:
 	static Camera *singleton;
@@ -47,7 +47,7 @@ public:
 		return *singleton;
 	}
 
-	void setFollowEntity(Entity *entity)
+	void setFollowEntity(GameEntity *entity)
 	{
 		followEntity = entity;
 	}
@@ -65,7 +65,7 @@ private:
 	glm::mat4 projection;
 	glm::vec3 forward;
 	glm::vec3 up;
-	Entity *followEntity;
+	GameEntity *followEntity;
 };
 
 

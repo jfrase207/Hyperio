@@ -9,11 +9,11 @@
 #include <GLFW\glfw3.h>
 #include <time.h>
 
-class GameObject : public Entity
+class GameObject : public GameEntity
 {
 	Transform transform;
 protected:
-	Mesh *mesh;
+	Mesh *ModelMesh;
 	Texture *texture; // Only 1 texture per mesh
 	Shader *shader;
 
@@ -34,7 +34,7 @@ public:
 
 	GameObject()
 	{
-		mesh = 0;
+		ModelMesh = 0;
 		texture = 0;
 		shader = 0;
 		sphereRadius = 1.0f;
@@ -43,10 +43,10 @@ public:
 
 	virtual ~GameObject()
 	{
-		if (mesh)
+		if (ModelMesh)
 		{
-			delete mesh;
-			mesh = 0;
+			delete ModelMesh;
+			ModelMesh = 0;
 		}
 
 		if (texture)
@@ -78,21 +78,21 @@ public:
 		if (texture)
 			texture->Bind(0);
 
-		if (mesh)
+		if (ModelMesh)
 		{
-			mesh->draw();
-			mesh->updateSphereData(this->position, sphereRadius);
+			ModelMesh->draw();
+			ModelMesh->updateSphereData(this->position, sphereRadius);
 		}
 	}		
 
 	glm::vec3 getSpherePos()
 	{
-		return mesh->getSpherePos();
+		return ModelMesh->getSpherePos();
 	}
 
 	float getSphereRadius()
 	{
-		return mesh->getSphereRadius();
+		return ModelMesh->getSphereRadius();
 	}
 
 	void setToon(glm::vec3 lightDir, glm::vec3 _color)
