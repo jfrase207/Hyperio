@@ -28,14 +28,22 @@ void main()
 {
 normal = GetNormal();
 
-    gl_Position = explode(gl_in[0].gl_Position, normal);
-    
+    /*gl_Position = explode(gl_in[0].gl_Position, normal);    
     EmitVertex();
-    gl_Position = explode(gl_in[1].gl_Position, normal);
-   
+
+    gl_Position = explode(gl_in[1].gl_Position, normal);   
     EmitVertex();
+
     gl_Position = explode(gl_in[2].gl_Position, normal);
+	EmitVertex();*/
+
+	for(int i; i < 3; i++)
+	{
+		gl_Position = explode(gl_in[i].gl_Position, normal);  	
+		EmitVertex();
+	}
+
    
-    EmitVertex();
+    
     EndPrimitive();
 }

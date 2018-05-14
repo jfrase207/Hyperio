@@ -124,8 +124,8 @@ public:
 		//shader->setMat4("u_vm", Camera::getSingleton().GetView());
 		//shader->setMat4("u_pm", Camera::getSingleton().GetProjection());
 		
-		shader->setVec3("fogColor", glm::vec3(0.2, 0.2, 0.2));
-		shader->setFloat("minDist", -150);
+		shader->setVec3("fogColor", glm::vec3(0.7, 0.7, 0.7));
+		shader->setFloat("minDist", 80);
 		shader->setFloat("maxDist", 150);
 
 		//shader->setVec3("zposplayer", _zPosPlayer);

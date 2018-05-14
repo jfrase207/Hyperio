@@ -9,8 +9,7 @@ out vec3 v_norm;
 out vec4 v_pos; 
 
 void main()
-{
-	
+{	
 	v_norm = VertexNormal;
 	v_pos = vec4(VertexPosition, 1.0);
 	gl_Position = transform * vec4(VertexPosition, 1.0);

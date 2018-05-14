@@ -8,9 +8,6 @@ in vec3 normal;
 
 void main()
 {
-    //FragColor =vec4(0.5,0.5,0.5,1);
-
-
 	float intensity;
 	vec4 color;
 	intensity = dot(lightDir,normal);

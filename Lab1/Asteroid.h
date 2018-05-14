@@ -21,7 +21,7 @@ public:
 		filename += std::to_string(asteroidNum);
 		filename += ".obj";
 		ModelMesh = new Mesh();
-		ModelMesh->loadModel(filename);
+		ModelMesh->ModelLoader(filename);
 		texture = new Texture();
 		texture->init("..\\res\\asteroid.jpg");
 	    shader = new Shader();		

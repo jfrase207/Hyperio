@@ -78,6 +78,11 @@ void MainGame::initSystems()
 	//this creates a display window for the game.
 	_gameDisplay.initDisplay();
 
+	//initialise a camera and set default variables
+	Camera::getSingleton().initCamera(glm::vec3(0, 2, -10), 45.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 1000.0f);
+	//set the camera to follow the player
+	Camera::getSingleton().setFollowEntity(&player);
+
 	//load sound file.
 	backGroundMusic = audioDevice.loadSound("..\\res\\Sci-fi.wav");
 
@@ -106,22 +111,12 @@ void MainGame::initSystems()
 				//and and to asteroids list.
 				asteroid->init(rand() % 2 + 1);
 				asteroid->setPosition(glm::vec3(15 * o, 10, 20 * i));
-				asteroids.push_back(asteroid);
+				asteroids.push_back(asteroid);			
 				
-				//generate a random vec3 and add to list of random light directions for asteroid shader to use
-				randX = (rand() % 100 + 30) / 10;
-				randY = (rand() % 100 + 30) / 10;
-				randZ = (rand() % 100 + 30) / 10;
-				randomVec = glm::vec3(randX, randY, randZ);	
-				randomLight.push_back(randomVec);
 			}
 		}
 	}
-
-	//initialise a camera and set default variables
-	Camera::getSingleton().initCamera(glm::vec3(0, 2, -10), 45.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 1000.0f);
-	//set the camera to follow the player
-	Camera::getSingleton().setFollowEntity(&player);
+	
 	//zero players initial move direction
 	playerMovingDirection = 0;	
 	
@@ -227,8 +222,6 @@ void MainGame::processInput()
 {
 	//create an sdl event
 	SDL_Event evnt;
-
-
 	while (SDL_PollEvent(&evnt)) //get and process events
 	{
 		switch (evnt.type)
@@ -344,7 +337,8 @@ void MainGame::DrawAsteroids()
 	for (int i = 0; i < asteroids.size(); i++)
 	{
 		asteroids[i]->draw();		
-		asteroids[i]->setFog(player.getPosition(),asteroids[i]->getPosition(),glm::vec3(0.8, 0.8, 0.8), glm::vec3(0.5, 0.5, 0.5),150);		
+		asteroids[i]->setFog(player.getPosition(),asteroids[i]->getPosition(),glm::vec3(1, 0.2,0), glm::vec3(0.5, 0.5, 0.5),200);	
+		
 	}
 	
 }

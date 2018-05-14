@@ -57,13 +57,9 @@ Mesh::Mesh()
 	drawCount = NULL;
 }
 
-static std::string GetBaseDir(const std::string &filepath) {
-	if (filepath.find_last_of("/\\") != std::string::npos)
-		return filepath.substr(0, filepath.find_last_of("/\\"));
-	return "";
-}
 
-void Mesh::loadModel(const std::string& filename)
+
+void Mesh::ModelLoader(const std::string& filename)
 {
 	//IndexedModel model = OBJModel(filename).ToIndexedModel();
 	//initModel(model);
@@ -116,6 +112,12 @@ void Mesh::loadModel(const std::string& filename)
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(indices[0]), &indices[0], GL_STATIC_DRAW); //move the data to the GPU - type of data, size of data, starting address (pointer) of data, where do we store the data on the GPU
 
 	glBindVertexArray(0); // unbind our VAO
+}
+
+static std::string GetBaseDir(const std::string &filepath) {
+	if (filepath.find_last_of("/\\") != std::string::npos)
+		return filepath.substr(0, filepath.find_last_of("/\\"));
+	return "";
 }
 
 Mesh::~Mesh()

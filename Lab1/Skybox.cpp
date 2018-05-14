@@ -13,38 +13,14 @@ Skybox::~Skybox()
 
 bool Skybox::initialise()
 {
-	create_skybox_mesh();
-	create_skybox_texture("..\\res\\skybox\\cwd", ".jpg");
+	GenerateSkyboxMesh();
+	CreateSkyboxTexture("..\\res\\skybox\\cwd", ".jpg");
 	return true;
 }
 
-void Skybox::draw()
+void Skybox::GenerateSkyboxMesh()
 {
-	Transform transform;
-	transform.SetPos(Camera::getSingleton().getPosition());
-	transform.SetRot(this->rotation);
-	transform.SetScale(glm::vec3(1, 1, 1));
-	
-	
-	
-
-	glDepthMask(GL_FALSE);
-
-	if (shader)
-	{
-		shader->Bind();
-		shader->Update(transform, Camera::getSingleton());
-	}
-
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, texSkybox);
-	glBindVertexArray(vao);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-	glDepthMask(GL_TRUE);
-}
-
-void Skybox::create_skybox_mesh()
-{
+	//create points for skybox mesh
 	float points[] = {
 		-10.0f,  10.0f, -10.0f,
 		-10.0f, -10.0f, -10.0f,
@@ -88,12 +64,14 @@ void Skybox::create_skybox_mesh()
 		-10.0f, -10.0f,  10.0f,
 		10.0f, -10.0f,  10.0f
 	};
+
+	//generate, bind and send data to vertex buffer object
 	GLuint vbo;
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, 3 * 36 * sizeof(float), &points, GL_STATIC_DRAW);
 
-	
+
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 	glEnableVertexAttribArray(0);
@@ -102,19 +80,19 @@ void Skybox::create_skybox_mesh()
 	glBindVertexArray(0);
 }
 
-void Skybox::create_skybox_texture(const std::string &filePrefix, const std::string &fileType)
+void Skybox::CreateSkyboxTexture(const std::string &filePrefix, const std::string &fileType)
 {
 	// generate a cube-map texture to hold all the sides
 	glActiveTexture(GL_TEXTURE0);
 	glGenTextures(1, &texSkybox);
 
 	// load each image and copy into a side of the cube-map texture
-	load_side(texSkybox, GL_TEXTURE_CUBE_MAP_NEGATIVE_X, filePrefix + "_ft" + fileType);
-	load_side(texSkybox, GL_TEXTURE_CUBE_MAP_POSITIVE_X, filePrefix + "_bk" + fileType);
-	load_side(texSkybox, GL_TEXTURE_CUBE_MAP_POSITIVE_Y, filePrefix + "_up" + fileType);
-	load_side(texSkybox, GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, filePrefix + "_dn" + fileType);
-	load_side(texSkybox, GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, filePrefix + "_lf" + fileType);
-	load_side(texSkybox, GL_TEXTURE_CUBE_MAP_POSITIVE_Z, filePrefix + "_rt" + fileType);
+	LoadSkyboxSides(texSkybox, GL_TEXTURE_CUBE_MAP_NEGATIVE_X, filePrefix + "_ft" + fileType);
+	LoadSkyboxSides(texSkybox, GL_TEXTURE_CUBE_MAP_POSITIVE_X, filePrefix + "_bk" + fileType);
+	LoadSkyboxSides(texSkybox, GL_TEXTURE_CUBE_MAP_POSITIVE_Y, filePrefix + "_up" + fileType);
+	LoadSkyboxSides(texSkybox, GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, filePrefix + "_dn" + fileType);
+	LoadSkyboxSides(texSkybox, GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, filePrefix + "_lf" + fileType);
+	LoadSkyboxSides(texSkybox, GL_TEXTURE_CUBE_MAP_POSITIVE_Z, filePrefix + "_rt" + fileType);
 	// format cube map texture
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -126,7 +104,7 @@ void Skybox::create_skybox_texture(const std::string &filePrefix, const std::str
 	shader->init("..\\res\\skybox");
 }
 
-bool Skybox::load_side(GLuint texture, GLenum side_target, const std::string & file_name)
+bool Skybox::LoadSkyboxSides(GLuint texture, GLenum side_target, const std::string & file_name)
 {
 	glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
 
@@ -144,3 +122,28 @@ bool Skybox::load_side(GLuint texture, GLenum side_target, const std::string & f
 	free(image_data);
 	return true;
 }
+
+void Skybox::draw()
+{
+	//set skybox transforms
+	Transform transform;
+	transform.SetPos(Camera::getSingleton().getPosition());
+	transform.SetRot(this->rotation);
+	transform.SetScale(glm::vec3(1, 1, 1));
+
+
+	glDepthMask(GL_FALSE);
+
+	if (shader)
+	{
+		shader->Bind();
+		shader->Update(transform, Camera::getSingleton());
+	}
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, texSkybox);
+	glBindVertexArray(vao);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glDepthMask(GL_TRUE);
+}
+

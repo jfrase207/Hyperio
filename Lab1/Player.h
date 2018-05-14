@@ -12,7 +12,7 @@ public:
 	void init()
 	{
 		ModelMesh = new Mesh();
-		ModelMesh->loadModel("..\\res\\Ship.obj");
+		ModelMesh->ModelLoader("..\\res\\Ship.obj");
 		texture = new Texture();
 		texture->init("..\\res\\ship.png");
 		shader = new Shader();		
