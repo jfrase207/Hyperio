@@ -130,8 +130,8 @@ void Grid::InitiateBuffers()
 
 
 	glBindVertexArray(0);
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);		
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);		
 
 	shader = new Shader();
 	shader->init(grid,grid);
@@ -143,7 +143,7 @@ void Grid::drawGrid()
 	getIndices(width, height);
 	InitiateBuffers();
 */
-	transformer.SetPos(glm::vec3(-200, -15, -200));
+	transformer.SetPos(glm::vec3(-200, -20, -200));
 	transformer.SetRot(this->rotation);
 	transformer.SetScale(scale);
 
@@ -176,10 +176,6 @@ void Grid::drawGrid()
 
 	glEnable(GL_CULL_FACE);
 
-
-	
-
-	
 }
 
 

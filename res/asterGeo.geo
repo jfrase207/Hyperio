@@ -3,7 +3,8 @@
 layout (triangles) in;
 layout (triangle_strip, max_vertices = 3) out;
 
-uniform float distance;
+uniform vec3 playerPos;
+uniform float cullDistance;
 
 in vec3 v_norm[];
 out vec3 normal;
@@ -19,23 +20,23 @@ vec3 GetNormal()
 void main()
 {
 
-normal = v_norm[0];
+	normal = v_norm[2];
+	float dist;
 
-for(int i; i < 3; i++)
-{
+	for(int i; i < 3; i++)
+	{
 
-gl_Position = gl_in[i].gl_Position;
+		gl_Position = gl_in[i].gl_Position;
+		
+		dist = sqrt((playerPos.x-gl_in[i].gl_Position.x) * (playerPos.x-gl_in[i].gl_Position.x) + (playerPos.y-gl_in[i].gl_Position.y) * (playerPos.y-gl_in[i].gl_Position.y) + (playerPos.z-gl_in[i].gl_Position.z) * (playerPos.z-gl_in[i].gl_Position.z));			
 
-float dist = gl_Position.z - distance;
+		if(dist < cullDistance)
+			EmitVertex();
 
-    gl_Position = gl_in[i].gl_Position;
+	}
 
-	if(dist < 250)
-       EmitVertex();
-
-}
-
-EndPrimitive();   
+	
+		EndPrimitive();   
    
 
 }

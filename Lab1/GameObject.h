@@ -113,9 +113,10 @@ public:
 		shader->setMat4("v_pos", transform.GetModel());
 	}
 
-	void setFog(glm::vec3 zPosPlayer, glm::vec3 zPosAsteroid, glm::vec3 _color, glm::vec3 _lightDir)
+	void setFog(glm::vec3 _zPosPlayer, glm::vec3 _zPosAsteroid, glm::vec3 _color, glm::vec3 _lightDir, float _cullDistance)
 	{
-		shader->setFloat("distance", zPosPlayer.z);
+		shader->setVec3("playerPos", _zPosPlayer);
+		shader->setFloat("cullDistance", _cullDistance);
 
 		shader->setVec3("lightDir", _lightDir);
 		shader->setVec3("_color", _color);
@@ -127,8 +128,8 @@ public:
 		shader->setFloat("minDist", -150);
 		shader->setFloat("maxDist", 150);
 
-		shader->setVec3("zposplayer", zPosPlayer);
-		shader->setVec3("zposasteroid", zPosAsteroid);
+		//shader->setVec3("zposplayer", _zPosPlayer);
+		shader->setVec3("zposasteroid", _zPosAsteroid);
 		
 	
 
