@@ -4,6 +4,7 @@ layout (triangles) in;
 layout (triangle_strip, max_vertices = 3) out;
 
 uniform vec3 playerPos;
+uniform vec3 zposasteroid;
 uniform float cullDistance;
 
 in vec3 v_norm[];
@@ -28,7 +29,7 @@ void main()
 
 		gl_Position = gl_in[i].gl_Position;
 		
-		dist = sqrt((playerPos.x-gl_in[i].gl_Position.x) * (playerPos.x-gl_in[i].gl_Position.x) + (playerPos.y-gl_in[i].gl_Position.y) * (playerPos.y-gl_in[i].gl_Position.y) + (playerPos.z-gl_in[i].gl_Position.z) * (playerPos.z-gl_in[i].gl_Position.z));			
+		dist = sqrt((playerPos.x-zposasteroid.x) * (playerPos.x-zposasteroid.x) + (playerPos.y-zposasteroid.y) * (playerPos.y-zposasteroid.y) + (playerPos.z-zposasteroid.z) * (playerPos.z-zposasteroid.z));			
 
 		if(dist < cullDistance)
 			EmitVertex();
