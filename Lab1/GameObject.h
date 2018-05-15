@@ -26,8 +26,8 @@ public:
 	const std::string& fog = "..\\res\\shaderFog";
 	const std::string& blur = "..\\res\\shaderBlur";
 	const std::string& test = "..\\res\\shaderTest";
-	const std::string& geo = "..\\res\\geometryShader";
-	const std::string& asterGeo = "..\\res\\asterGeo";
+	const std::string& player = "..\\res\\playerShader";
+	const std::string& rock = "..\\res\\rockShader";
 	const std::string& grid = "..\\res\\grid";
 	const std::string& skybox = "..\\res\\skybox";
 
@@ -113,7 +113,7 @@ public:
 		shader->setMat4("v_pos", transform.GetModel());
 	}
 
-	void setFog(glm::vec3 _zPosPlayer, glm::vec3 _zPosAsteroid, glm::vec3 _color, glm::vec3 _lightDir, float _cullDistance)
+	void setFog(glm::vec3 _zPosPlayer, glm::vec3 _zPosRock, glm::vec3 _color, glm::vec3 _lightDir, float _cullDistance)
 	{
 		shader->setVec3("playerPos", _zPosPlayer);
 		shader->setFloat("cullDistance", _cullDistance);
@@ -129,7 +129,7 @@ public:
 		shader->setFloat("maxDist", 150);
 
 		//shader->setVec3("zposplayer", _zPosPlayer);
-		shader->setVec3("zposasteroid", _zPosAsteroid);
+		shader->setVec3("zposrock", _zPosRock);
 		
 	
 

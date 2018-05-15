@@ -7,7 +7,7 @@
 //create a camera singleton
 Camera *Camera::singleton;
 
-//create the level grid for placement of asteroids
+//create the level grid for placement of rocks
 int levelgrid[40][10] =
 {
 	{ 1,0,0,1,1,1,0,0,1,1 },
@@ -96,22 +96,23 @@ void MainGame::initSystems()
 
 	//initialise the terrain
 	terrain.init();
-	
-	//created asteroids and set transforms.
+	srand(time(NULL));
+	//created rocks and set transforms.
 	for (int i = 0; i < 40; i++)
 	{
 		for (int o = 0; o < 10; o++)
 		{
 			if (levelgrid[i][o] != 0)
 			{
-				//create a new asteroid on each loop
-				Asteroid *asteroid = new Asteroid();
+				//create a new rocks on each loop
+				Rock *rock = new Rock();
 
-				//initialise the asteroid and pick a random model to load from 3 availabel. Set transforms
-				//and and to asteroids list.
-				asteroid->init(rand() % 2 + 1);
-				asteroid->setPosition(glm::vec3(15 * o, 10, 20 * i));
-				asteroids.push_back(asteroid);			
+				//initialise the rock and pick a random model to load from 3 availabel. Set transforms
+				//and and to rocks list.
+				
+				rock->init(rand() % 3 + 1);
+				rock->setPosition(glm::vec3(15 * o, 10, 20 * i));
+				rocks.push_back(rock);			
 				
 			}
 		}
@@ -171,11 +172,11 @@ void MainGame::gameLoop()
 		//calculate delta time
 		CalculateDeltaTime();
 
-		//loop check for collision between asteroids and player
-		for (size_t i = 0; i < asteroids.size(); i++)
+		//loop check for collision between rocks and player
+		for (size_t i = 0; i < rocks.size(); i++)
 		{			
-			//checking if player collison sphere is inside asteroid collision sphere 
-			if (CollisionCheck(player.getSpherePos(), player.getSphereRadius(), asteroids[i]->getSpherePos(), asteroids[i]->getSphereRadius()))
+			//checking if player collison sphere is inside rocks collision sphere 
+			if (CollisionCheck(player.getSpherePos(), player.getSphereRadius(), rocks[i]->getSpherePos(), rocks[i]->getSphereRadius()))
 			{
 				//set player explosion variabale
 				explosionRate = 0.2;
@@ -325,19 +326,20 @@ void MainGame::drawGame()
 	player.draw();	
 	//set the players uniform variables for shader to use
 	player.setGeo(explosionCounter, glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.2, 0.2, 1));	
-	//call the draw asteroids function
-	DrawAsteroids();		
+	//call the draw rocks function
+	DrawRocks();		
 	//swap the display buffers allows multi rendering
 	_gameDisplay.swapBuffer();
 }
-//draw the asteroids
-void MainGame::DrawAsteroids()
+//draw the rocks
+void MainGame::DrawRocks()
 {
-	//cycle through the asteroids list and draw to screen and set uniforms for shader to use
-	for (int i = 0; i < asteroids.size(); i++)
+	//cycle through the rocks list and draw to screen and set uniforms for shader to use
+	for (int i = 0; i < rocks.size(); i++)
 	{
-		asteroids[i]->draw();		
-		asteroids[i]->setFog(player.getPosition(),asteroids[i]->getPosition(),glm::vec3(1, 0.2,0), glm::vec3(0.5, 0.5, 0.5),200);	
+		rocks[i]->draw();		
+		rocks[i]->setFog(player.getPosition(),rocks[i]->getPosition(),glm::vec3(1, 0.2,0), glm::vec3(0.5, 0.5, 0.5),200);	
+		rocks[i]->rotate(glm::vec3(0,0,1),0.1*deltaTime);
 		
 	}
 	

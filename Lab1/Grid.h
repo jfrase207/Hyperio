@@ -15,23 +15,17 @@ public:
 	Grid();
 	~Grid();
 	bool init();	
-	void drawGrid();
-	void GenerateGrid();
+	void drawGrid();	
 	void InitiateBuffers();
 	bool getIndices(int width, int height);
-	bool getVertices(int width, int height);
-	void generatePerlin();
-
-	void render();
-
-	//std::vector<Vert> vertices;
-	//std::vector<float> indices;
+	bool createVertices(int width, int height);
+	int getVerticesCount(int width, int height);
+	int getIndicesCount(int width, int height);
 
 	GLuint VAO;
-	GLuint VBO;
+	GLuint vbo;
+	GLuint ibo;
 
-	void GridMesh();
-
-	GLuint vao;
+	
 
 };

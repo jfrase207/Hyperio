@@ -2,7 +2,7 @@
 #include "PerlinNoise.h"
 
 
-
+//setup variables for terrain
 Transform transformer;
 int width = 200;
 int height = 200;
@@ -21,50 +21,49 @@ Grid::~Grid()
 {
 
 }
-
-int getVerticesCount(int width, int height) {
-	return width * height * 3;
-}
-
-int getIndicesCount(int width, int height) {
-	return (width*height) + (width - 1)*(height - 2);
-}
-
-
+//initialise arrays and create the mesh and buffers
 bool Grid::init()
 {
 	
 	vertices = new float[getVerticesCount(width, height)];
 	indices = new int[getIndicesCount(width, height)];
 
-	getVertices(width,height);
+	createVertices(width,height);
 	getIndices(width,height);
 	InitiateBuffers();
 	
 	return true;
 }
 
-bool Grid::getVertices(int width, int height) 
+//returns the amount of vertices needed based on grid width and height
+int Grid::getVerticesCount(int width, int height) {
+	return width * height * 3;
+}
+//returns the amount of indices needed based on grid width and height
+int Grid::getIndicesCount(int width, int height) {
+	return (width*height) + (width - 1)*(height - 2);
+}
+
+//create the vertices for the mesh
+bool Grid::createVertices(int width, int height) 
 {
 	
 	int i = 0;
-
+	//create a random seed value for th perlin noise
 	srand(time(NULL));
 	seed = rand() % 1000 + 1;
-	
 
-	//PerlinNoise pn(offset+=0.4);
 	PerlinNoise pn(seed);
-
+	//create the vertices
 	for (int row = 0; row<width; row++) {
 		for (int col = 0; col<height; col++) {
-
+			
 			double x = (double)row / ((double)width);
 			double y = (double)col / ((double)height);
-
+			//call the perlin noise function to create y values
 			float n = pn.noise(10 * x, 0.8, 10 * y);
 			float yVer = n * 30;
-
+			//create verts
 			vertices[i++] = (float)row;
 			vertices[i++] = yVer;
 			vertices[i++] = (float)col;
@@ -73,27 +72,25 @@ bool Grid::getVertices(int width, int height)
 
 	return true;
 }
-
-
-
+//create the indices based on the grid paramaters
 bool Grid::getIndices(int width, int height) 
 {	
 	int i = 0;
-
+	//loop through the even rows creating indices
 	for (int row = 0; row<width - 1; row++) {
 		if ((row & 1) == 0) { // even rows
 			for (int col = 0; col<height; col++) {
 				indices[i++] = col + row * height;
 				indices[i++] = col + (row + 1) * height;
 			}
-		}
+		}//loop through the odd rows to create odd indices
 		else { // odd rows
 			for (int col = height - 1; col>0; col--) {
 				indices[i++] = col + (row + 1) * height;
 				indices[i++] = col - 1 + +row * height;
 			}
 		}
-	}
+	}//degenerate the triangles
 	if ((height & 1) && height > 2) {
 		indices[i++] = (height - 1) * width;
 	}
@@ -102,12 +99,9 @@ bool Grid::getIndices(int width, int height)
 }
 
 
-
+//generate, fill and bind opengl buffers with the vertices and indices
 void Grid::InitiateBuffers()
 {
-	GLuint vbo;
-	GLuint ibo;
-
 	glGenBuffers(1, &vbo);
 	glGenBuffers(1, &ibo);
 
@@ -136,13 +130,9 @@ void Grid::InitiateBuffers()
 	shader = new Shader();
 	shader->init(grid,grid);
 }
-
+//draw the grid
 void Grid::drawGrid()
 {
-	/*getVertices(width, height);
-	getIndices(width, height);
-	InitiateBuffers();
-*/
 	transformer.SetPos(glm::vec3(-200, -20, -200));
 	transformer.SetRot(this->rotation);
 	transformer.SetScale(scale);
@@ -152,21 +142,11 @@ void Grid::drawGrid()
 		shader->Bind();
 		shader->Update(transformer, Camera::getSingleton());
 	}
-
 	
 
-	//glDisable(GL_CULL_FACE);
-
-	glCullFace(GL_FRONT);
+	glCullFace(GL_FRONT);	
 	
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	
-	glBindVertexArray(VAO);
-
-	//glDrawArrays(GL_POINTS, 0, vertices.size());
-	
-	//glDrawArrays(GL_POINTS, 0, getVerticesCount(width, height));
-	
+	glBindVertexArray(VAO);	
 	
 	glDrawElements(GL_TRIANGLE_STRIP, getIndicesCount(width, height), GL_UNSIGNED_INT, 0);
 
@@ -174,7 +154,7 @@ void Grid::drawGrid()
 	
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	glEnable(GL_CULL_FACE);
+	
 
 }
 

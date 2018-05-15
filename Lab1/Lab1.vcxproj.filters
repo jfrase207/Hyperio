@@ -95,9 +95,6 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Asteroid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Skybox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -108,6 +105,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rocks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -136,12 +136,6 @@
     <None Include="..\res\shaderRimToon.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\res\shaderFog.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\res\shaderFog.vert">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="..\res\shaderBlur.frag">
       <Filter>Resource Files</Filter>
     </None>
@@ -160,15 +154,6 @@
     <None Include="..\res\shader.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\res\geometryShader.geo">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\res\geometryShader.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\res\geometryShader.vert">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="..\res\grid.frag">
       <Filter>Resource Files</Filter>
     </None>
@@ -178,7 +163,22 @@
     <None Include="..\res\grid.geo">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\res\asterGeo.geo">
+    <None Include="..\res\playerShader.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\playerShader.geo">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\playerShader.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\rockShader.geo">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\rockShader.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\rockShader.frag">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

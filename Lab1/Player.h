@@ -16,7 +16,7 @@ public:
 		texture = new Texture();
 		texture->init("..\\res\\ship.png");
 		shader = new Shader();		
-		shader->init(geo,geo);
+		shader->init(player,player);
 		sphereRadius = 2.5f;	
 		
 	}

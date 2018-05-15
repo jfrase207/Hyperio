@@ -7,7 +7,7 @@
 #include "Texture.h"
 #include "Player.h"
 #include "transform.h"
-#include "Asteroid.h"
+#include "Rocks.h"
 #include "Skybox.h"
 #include "Grid.h"
 #include "Audio.h"
@@ -29,7 +29,7 @@ private:
 	void processInput();
 	void gameLoop();
 	void drawGame();
-	void DrawAsteroids();
+	void DrawRocks();
 	bool CollisionCheck(glm::vec3 m1Pos, float m1Rad, glm::vec3 m2Pos, float m2Rad);
 	void playAudio(unsigned int Source, glm::vec3 pos);
 	void CalculateDeltaTime();
@@ -41,8 +41,8 @@ private:
 	Player player;
 	Grid terrain;
 
-	std::vector<Asteroid *> asteroids;
-	std::vector<glm::vec3> randomLight;
+	std::vector<Rock *> rocks;
+	std::vector<glm::vec3> randomSpin;
 
 	int playerMovingDirection;
 	Skybox skybox;

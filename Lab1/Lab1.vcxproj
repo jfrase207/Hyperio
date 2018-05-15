@@ -89,7 +89,7 @@
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Asteroid.h" />
+    <ClInclude Include="Rocks.h" />
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Display.h" />
@@ -109,19 +109,19 @@
     <ClInclude Include="transform.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\res\asterGeo.geo" />
-    <None Include="..\res\geometryShader.frag" />
-    <None Include="..\res\geometryShader.geo" />
-    <None Include="..\res\geometryShader.vert" />
     <None Include="..\res\grid.frag" />
     <None Include="..\res\grid.geo" />
     <None Include="..\res\grid.vert" />
+    <None Include="..\res\playerShader.frag" />
+    <None Include="..\res\playerShader.geo" />
+    <None Include="..\res\playerShader.vert" />
+    <None Include="..\res\rockShader.frag" />
+    <None Include="..\res\rockShader.geo" />
+    <None Include="..\res\rockShader.vert" />
     <None Include="..\res\shader.frag" />
     <None Include="..\res\shader.vert" />
     <None Include="..\res\shaderBlur.frag" />
     <None Include="..\res\shaderBlur.vert" />
-    <None Include="..\res\shaderFog.frag" />
-    <None Include="..\res\shaderFog.vert" />
     <None Include="..\res\shaderRim.frag" />
     <None Include="..\res\shaderRim.vert" />
     <None Include="..\res\shaderRimToon.frag" />
